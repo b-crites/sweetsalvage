@@ -1,6 +1,7 @@
 "use client";
 
-import "boxicons";
+
+import Form from "./components/Form";
 
 export default function Home() {
   const events = [
@@ -68,6 +69,7 @@ export default function Home() {
     <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
   </div>
 </div>
+<Form />
 
 
         {/* ================================================= */}
