@@ -29,8 +29,10 @@ export default function Form() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
   
+  
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [showBanner, setShowBanner] = useState(false);
   
   const today = new Date().toISOString().split("T")[0];
 
@@ -62,6 +64,16 @@ export default function Form() {
 
     // Log the form data with only active fields
     console.log("Form data:", formData);
+    setShowBanner(true);
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 5000); 
+   
+    
+  };
+
+  const closeBanner = () => {
+    setShowBanner(false);
   };
   
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -76,9 +88,59 @@ export default function Form() {
     return value;
   };
 
+  
+
 
   return (
     <>
+     {showBanner && (
+        <div className="alert-overlay">
+          <div className="alert-banner">
+            <button className="close-button" onClick={closeBanner}>
+              &times; {/* Close icon */}
+            </button>
+            We will be in touch within 24 hours!
+          </div>
+        </div>
+      )}
+              <style jsx>{`
+        .alert-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .alert-banner {
+          background-color: #4caf50; /* Green */
+          color: white;
+          padding: 20px;
+          border-radius: 5px;
+          text-align: center;
+          width: 300px; /* Set a fixed width for the banner */
+        }
+
+         .close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 20px;
+          cursor: pointer;
+        }
+
+        .close-button:hover {
+          opacity: 0.8; /* Optional hover effect */
+        }
+      `}</style>
       <div className="rounded-xl bg-white max-w-96 min-w-fit p-4 border border-black mx-auto my-20">
         <h1 className="text-lg text-center font-bold mb-4">Inquiry Form</h1>
 
