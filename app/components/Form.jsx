@@ -5,35 +5,76 @@ import { useState } from "react";
 export default function Form() {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedMembers, setSelectedMembers] = useState("");
-  const [setLength, setSetLength] =useState("");
+  const [setLength, setSetLength] = useState("");
   const [power, setPower] = useState("");
-  const [selectedDate, setSelectedDate] =useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [typeOfMusic, setTypeOfMusic] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [drinks, setDrinks] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handleChange = (e) => {
-    setSelectedValue(e.target.value);
-  };
-
-  const handleMemberChange = (e) => {
-    setSelectedMembers(e.target.value);
-  };
-
-  const handleSetChange = (e) =>{
-    setSetLength(e.target.value)
-  }
-
-  const handlePowerChange =(e) =>{
-    setPower(e.target.value)
-  }
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
-  const today = new Date().toISOString().split('T')[0];
+  const handleChange = (e) => setSelectedValue(e.target.value);
+  const handleMemberChange = (e) => setSelectedMembers(e.target.value);
+  const handleMusicChange = (e) => setTypeOfMusic(e.target.value);
+  const handleSetChange = (e) => setSetLength(e.target.value);
+  const handlePowerChange = (e) => setPower(e.target.value);
+  const handleEventChange = (e) => setEventType(e.target.value);
+  const handleDrinkChange = (e) => setDrinks(e.target.value);
+  const handleDateChange = (e) => setSelectedDate(e.target.value);
+  const handleFirstName = (e) => setFirstName(e.target.value);
+  const handleLastName = (e) => setLastName(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
   
-  const handleSubmit = () =>{
-    
-    alert("SUBMITTED!!!!")
-  }
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  
+  const today = new Date().toISOString().split("T")[0];
+
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Collect common data
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+    };
+
+    // Add data based on selected form
+    if (selectedValue === "band") {
+      formData.typeOfMusic = typeOfMusic;
+      formData.selectedMembers = selectedMembers;
+      formData.setLength = setLength;
+      formData.power = power;
+      formData.performanceDate = selectedDate;
+    } else if (selectedValue === "wedding") {
+      formData.eventType = eventType;
+      formData.drinks = drinks;
+      formData.weddingDate = selectedDate;
+    }
+
+    // Log the form data with only active fields
+    console.log("Form data:", formData);
+  };
+  
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const formatPhoneNumber = (value) => {
+    // Remove any non-digit characters
+    const cleaned = ('' + value).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return value;
+  };
 
 
   return (
@@ -54,10 +95,9 @@ export default function Form() {
           className="block w-full p-2 border border-gray-300 rounded-md"
         >
           <option value="" disabled>
-            -- Select an option --
+            -- Select a Form --
           </option>
           <option value="band">Band Form</option>
-          <option value="inquiry">Inquiry Form</option>
           <option value="wedding">Wedding Form</option>
           <option value="contact">Contact Form</option>
         </select>
@@ -67,63 +107,110 @@ export default function Form() {
             htmlFor="name"
             className="block mb-2 text-sm font-medium text-gray-700"
           >
-            Name:
+            <p>Name: <span className="text-red-600"> *</span></p>
           </label>
           <div className="flex space-x-4" id="name">
             <input
               className="block w-1/2 p-2 border border-gray-300 rounded-md"
               type="text"
               placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
             />
             <input
               className="block w-1/2 p-2 border border-gray-300 rounded-md"
               type="text"
               placeholder="Last Name"
+              value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </div>
         </div>
         <div className="pt-4">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-700"
-          >
-            Email:
-          </label>
-          <div className="flex space-x-4" id="email">
-            <input
-              className="block w-full p-2 border border-gray-300 rounded-md"
-              type="text"
-              placeholder="Email"
-            />
-          </div>
+        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">
+          <p>Email: <span className="text-red-600"> *</span></p>
+        </label>
+        <div className="flex space-x-4" id="email">
+          <input
+            className="block w-full p-2 border border-gray-300 rounded-md"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError(emailRegex.test(e.target.value) ? "" : "Please enter a valid email address.");
+            }}
+            required
+          />
         </div>
-        <div className="pt-4">
-          <label
-            htmlFor="phone"
-            className="block mb-2 text-sm font-medium text-gray-700"
-          >
-            Phone Number:
-          </label>
-          <div className="flex space-x-4" id="phone">
-            <input
-              className="block w-full p-2 border border-gray-300 rounded-md"
-              type="text"
-              placeholder="Phone Number"
-            />
-          </div>
-        </div>
+        {emailError && <p className="text-red-600 text-sm">{emailError}</p>}
+      </div>
+      <div className="pt-4">
+        <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-700">
+          <p>Phone Number: <span className="text-red-600"> *</span></p>
+        </label>
+        <div className="flex space-x-4" id="phone">
+          <input
+            className="block w-full p-2 border border-gray-300 rounded-md"
+            type="text"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => {
+              const formattedValue = formatPhoneNumber(e.target.value);
+              setPhoneNumber(formattedValue);
 
+              // Remove non-digit characters for validation
+              const cleanedValue = formattedValue.replace(/\D/g, '');
+              
+              // Validate the phone number and set error accordingly
+              if (cleanedValue.length === 10) {
+                setPhoneError(""); // Clear error if valid
+              } else {
+                setPhoneError("Please enter a valid phone number (10 digits).");
+              }
+            }}
+            required
+          />
+        </div>
+        {phoneError && <p className="text-red-600 text-sm">{phoneError}</p>}
+      </div>
+{/* BAND INFO******************************************************************************************************************************************************* */}
         {selectedValue === "band" && (
   <div className="mt-4">
     <label className="block mb-2 text-sm font-medium text-gray-700">
-      Band Information:
+    <p>Band Information: <span className="text-red-600"> *</span></p>
     </label>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* GENRE */}
       <input
         className="block w-full p-2 border border-gray-300 rounded-md"
         placeholder="Genre of Music"
         type="text"
+        required
+      />
+      {/* TYPE OF MUSIC */}
+      <select
+        id="typeOfMusic"
+        value={typeOfMusic}
+        onChange={handleMusicChange}
+        className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+        required
+      >
+        <option value="" disabled>
+          Type of Music?
+        </option>
+        <option value="Originals">Originals</option>
+        <option value="Covers">Covers</option>
+        <option value="Mix of Both">Mix of Both</option>
+        
+      </select>
+      {/* STAGE NAME */}
+      <input className="block w-full p-2 border border-gray-300 rounded-md"
+      placeholder="Band Name/Stage Name"
+      type="text"
+      required
       />
       {/* MEMBERS */}
       <select
@@ -131,6 +218,7 @@ export default function Form() {
         value={selectedMembers}
         onChange={handleMemberChange}
         className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+        required
       >
         <option value="" disabled>
           How many members?
@@ -149,6 +237,7 @@ export default function Form() {
         value={setLength}
         onChange={handleSetChange}
         className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+        required
       >
         <option value="" disabled>
           Set Time?
@@ -166,6 +255,7 @@ export default function Form() {
         value={power}
         onChange={handlePowerChange}
         className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+        required
       >
         <option value="" disabled>
           Will you need power?
@@ -176,7 +266,7 @@ export default function Form() {
       {/* DATE PICKER */}
       <div className="block col-span-2 w-full">
           <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-700">
-            Select a Performance Date:
+          <p>Select a Performance Date: <span className="text-red-600"> *</span></p>
           </label>
           <input
             type="date"
@@ -185,11 +275,12 @@ export default function Form() {
             onChange={handleDateChange}
             className="block w-full p-2 border border-gray-300 rounded-md"
             min={today} 
+            required
           />
         </div>
         {/* MESSAGES */}
     </div>
-        <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">Anything else we should know?</label>
+        <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">Anything else we should know? (Optional)</label>
         <textarea id="message" className="block w-full p-2 border border-gray-300 rounded-md" placeholder="Message">
 
         </textarea>
@@ -200,37 +291,86 @@ export default function Form() {
   </div>
   
 )}
-        {selectedValue === "inquiry" && (
-          <div className="mt-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Details for Option 2:
-            </label>
-            <textarea
-              className="block w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Textarea for Option 2"
-            ></textarea>
-          </div>
-        )}
+{/* END OF BAND INFO******************************************************************************************************************************************** */}
         {selectedValue === "wedding" && (
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-700">
-              Details for Option 2:
-            </label>
+    <p>Wedding Information: <span className="text-red-600"> *</span></p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <input
+        className="block w-full p-2 border border-gray-300 rounded-md"
+        placeholder="Number of Attendees?"
+        type="text"
+        required
+      />
+       <select
+        id="eventType"
+        value={eventType}
+        onChange={handleEventChange}
+        className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+        required
+      >
+        <option value="" disabled>
+          Event Type?
+        </option>
+        <option value="Ceremony">Ceremony</option>
+        <option value="Reception">Reception</option>
+        <option value="Both">Both</option>
+        
+      </select>
+      <select
+        id="drinks"
+        value={drinks}
+        onChange={handleDrinkChange}
+        className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+        required
+      >
+        <option value="" disabled>
+          Will you want an open bar?
+        </option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        
+      </select>
+       <div className="block col-span-2 w-full">
+          <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-700">
+          <p>Select a Wedding Date: <span className="text-red-600"> *</span></p>
+          </label>
+          <input
+            type="date"
+            id="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            className="block w-full p-2 border border-gray-300 rounded-md"
+            min={today} 
+            required
+          />
+        </div>
+        </div>
+    </label>
+            <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">Anything else we should know? (Optional)</label>
             <textarea
               className="block w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Textarea for Option 3"
+              placeholder="Message"
             ></textarea>
+            <div className="mt-2 grid justify-items-end">
+
+<button className="active:scale-95 duration-75 rounded-md bg-red-400 text-white px-4 py-2">Submit</button>
+  </div>
           </div>
+          
         )}
         {selectedValue === "contact" && (
           <div className="mt-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Details for Option 2:
-            </label>
+           <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">What's your reason for contacting?</label>
             <textarea
               className="block w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Textarea for Option 4"
+              placeholder="Message"
             ></textarea>
+            <div className="mt-2 grid justify-items-end">
+
+<button type="submit" className="active:scale-95 duration-75 rounded-md bg-red-400 text-white px-4 py-2">Submit</button>
+  </div>
           </div>
         )}
         </form>
