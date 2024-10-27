@@ -1,6 +1,7 @@
 "use client";
 
 
+import Link from "next/link";
 import Form from "./components/Form";
 
 export default function Home() {
@@ -78,7 +79,7 @@ export default function Home() {
           <div className=" text-center text-3xl font-semibold font-serif pt-5">
             <h3 className="">Upcoming Events</h3>
           </div>
-          <div className="pt-10 md:w-1/2 mx-auto">
+          <div className="pt-10 lg:w-1/2 lg:mx-auto mx-5">
             {/* Card Start */}
             {events.map((item, index) => (
               <div
@@ -104,11 +105,11 @@ export default function Home() {
         </div>
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
-        <div className="">
+        <div className="mx-auto">
           <div className="pt-20 text-center text-3xl font-semibold font-serif">
             <h3 className="">Food Trucks</h3>
           </div>
-          <div className="grid grid-cols-2 w-1/2 mx-auto mt-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:w-1/2 mx-auto mt-10">
             {food.map((item, index) => (
               <div key={index} className="relative mx-auto w-72 mb-20">
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
@@ -130,19 +131,19 @@ export default function Home() {
       </div>
       {/* ======================================================================================================== */}
       {/* About Section */}
-      <div className="mt-20">
+      <div className="lg:mt-20">
         
-      <div className="grid mx-auto mt-20 grid-cols-2 w-8/12">
-  <div className="col-span-1 mx-auto">
+      <div className="grid mx-auto mt-20 grid-cols-1 lg:grid-cols-2 w-11/12 lg:w-8/12">
+  <div className="col-span-1 order-2 lg:order-1 mx-auto">
     <img
       src="/Img/Sweet Salvage Store.png"
-      className="mx-auto bg-black"
+      className="mx-auto mt-5 mb-5  bg-black"
       alt="Picture"
     />
   </div>
-  <div className="col-span-1 mx-auto flex flex-col justify-center text-center">
+  <div className="order-1 lg:order-2 col-span-1  mx-auto flex flex-col justify-center h-full text-center">
     <h3 className="text-center font-bold text-5xl font-serif mb-4">About Us</h3>
-    <p className="mx-10">
+    <p className="lg:mx-10">
       Welcome to Sweet Salvage – your go-to spot for cool, vintage vibes
       and good times! Inside, you’ll find a mix of farmhouse decor,
       unique finds, and all the cozy stuff to make your space feel
@@ -152,7 +153,12 @@ export default function Home() {
       hang out, Sweet Salvage is all about laid-back fun and making
       memories.
     </p>
+    </div>
   </div>
+    <div className="mt-3 center">
+    <Link href="about-us">
+    <button className="active:scale-95 duration-75 rounded-md bg-red-400 text-white px-4 py-2">View More</button>
+    </Link>
 </div>
 
       </div>
@@ -171,7 +177,7 @@ export default function Home() {
   </h3>
 </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto my-8">
+<div className="grid grid-cols-1 md:grid-cols-3 w-11/12 gap-4 max-w-6xl mx-auto my-8">
   {posts.map((post, index) => (
     <div key={index} className="relative">
       <img 
