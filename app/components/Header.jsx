@@ -30,7 +30,9 @@ function Header() {
       <div className="flex justify-between items-center px-5 md:px-10">
         {/* Logo */}
         <h2 className="font-serif text-3xl text-white">
+          <Link href={"/"}>
           <button onClick={() => setIsMenuOpen(false)}>SWEET SALVAGE</button>
+          </Link>
         </h2>
 
         {/* Desktop Links */}
@@ -41,7 +43,7 @@ function Header() {
           <li>
           <Link href="/events"><button>Events</button></Link></li>
          <li> <Link href="/menus"><button>Menus</button></Link></li>
-       <li>   <Link href="/contact-us"><button>Contact Us</button></Link>     </li>
+       <li>   <Link href="/contact"><button>Contact Us</button></Link>     </li>
         </ul>
 
         {/* Mobile Hamburger Icon */}
