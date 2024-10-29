@@ -15,6 +15,7 @@ export default function Form() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  
 
   const handleChange = (e) => setSelectedValue(e.target.value);
   const handleMemberChange = (e) => setSelectedMembers(e.target.value);
@@ -24,11 +25,6 @@ export default function Form() {
   const handleEventChange = (e) => setEventType(e.target.value);
   const handleDrinkChange = (e) => setDrinks(e.target.value);
   const handleDateChange = (e) => setSelectedDate(e.target.value);
-  const handleFirstName = (e) => setFirstName(e.target.value);
-  const handleLastName = (e) => setLastName(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
-  
   
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -40,15 +36,16 @@ export default function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Collect common data
     const formData = {
+      selectedForm: selectedValue, // Add selectedValue to capture form type
       firstName,
       lastName,
       email,
       phoneNumber,
     };
-
+  
     // Add data based on selected form
     if (selectedValue === "band") {
       formData.typeOfMusic = typeOfMusic;
@@ -61,16 +58,15 @@ export default function Form() {
       formData.drinks = drinks;
       formData.weddingDate = selectedDate;
     }
-
+  
     // Log the form data with only active fields
     console.log("Form data:", formData);
     setShowBanner(true);
     setTimeout(() => {
       setShowBanner(false);
     }, 5000); 
-   
-    
   };
+  
 
   const closeBanner = () => {
     setShowBanner(false);
@@ -141,7 +137,7 @@ export default function Form() {
           opacity: 0.8; /* Optional hover effect */
         }
       `}</style>
-      <div className="rounded-xl bg-white max-w-96 min-w-fit p-4 border border-black mx-auto my-20">
+      <div className="rounded-xl bg-white max-w-96 min-w-fit p-4 border border-black mx-auto ">
         <h1 className="text-lg text-center font-bold mb-4">Inquiry Form</h1>
 
         <label
@@ -150,6 +146,7 @@ export default function Form() {
         >
           Select a Form
         </label>
+        <form onSubmit={handleSubmit}>
         <select
           id="dropdown"
           value={selectedValue}
@@ -163,7 +160,6 @@ export default function Form() {
           <option value="wedding">Wedding Form</option>
           <option value="contact">Contact Form</option>
         </select>
-        <form onSubmit={handleSubmit}>
         <div className="pt-4">
           <label
             htmlFor="name"
