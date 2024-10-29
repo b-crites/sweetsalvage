@@ -70,7 +70,7 @@ export default function Home() {
     <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
   </div>
 </div>
-<Form />
+
 
 
         {/* ================================================= */}
