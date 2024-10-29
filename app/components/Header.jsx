@@ -30,7 +30,9 @@ function Header() {
       <div className="flex justify-between items-center px-5 md:px-10">
         {/* Logo */}
         <h2 className="font-serif text-3xl text-white">
+          <Link href={"/"}>
           <button onClick={() => setIsMenuOpen(false)}>SWEET SALVAGE</button>
+          </Link>
         </h2>
 
         {/* Desktop Links */}
@@ -38,9 +40,10 @@ function Header() {
           <li>
             <Link href="/about-us"><button>About</button></Link>
           </li>
-          <li><button>Events</button></li>
-          <li><button>Menus</button></li>
-          <li><button>Contact Us</button></li>
+          <li>
+          <Link href="/events"><button>Events</button></Link></li>
+         <li> <Link href="/menus"><button>Menus</button></Link></li>
+       <li>   <Link href="/contact"><button>Contact Us</button></Link>     </li>
         </ul>
 
         {/* Mobile Hamburger Icon */}
@@ -71,9 +74,10 @@ function Header() {
           <li onClick={handleMenuToggle}>
             <Link href="/about-us"><button>About</button></Link>
           </li>
-          <li onClick={handleMenuToggle}><button>Events</button></li>
-          <li onClick={handleMenuToggle}><button>Menus</button></li>
-          <li onClick={handleMenuToggle}><button>Contact Us</button></li>
+          <li onClick={handleMenuToggle}>
+         <Link href="/events"><button>Events</button></Link></li>
+         <li onClick={handleMenuToggle}> <Link href="/menus"><button>Menus</button></Link></li>
+       <li onClick={handleMenuToggle}>   <Link href="/contact"><button>Contact Us</button></Link>     </li>
         </ul>
       </div>
     </nav>
