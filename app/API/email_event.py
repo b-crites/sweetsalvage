@@ -78,17 +78,41 @@ def send_band_email(data):
     # Generate ICS file specific to band performances
     ics_content = generate_ics("Band Performance", start_date)
     email_body = f"""
-    Band Inquiry:
-    First Name: {data['firstName']}
-    Last Name: {data['lastName']}
-    Email: {data['email']}
-    Phone: {data['phoneNumber']}
-    Date: {data['selectedDate']}
-    Type of Music: {data.get('typeOfMusic', 'N/A')}
-    Message: {data.get('message', 'None')}
+    <html>
+    <body style="font-family: Arial, sans-serif; color: #333;">
+        <div style="max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+            <h2 style="color: #4CAF50; text-align: center;">Band Inquiry</h2>
+            <hr style="border: none; border-top: 2px solid #4CAF50; margin-bottom: 20px;">
+            
+            <h3>Contact Information:</h3>
+            <p><strong>First Name:</strong> {data['firstName']}</p>
+            <p><strong>Last Name:</strong> {data['lastName']}</p>
+            <p><strong>Email:</strong> <a href="mailto:{data['email']}" style="color: #4CAF50;">{data['email']}</a></p>
+            <p><strong>Phone:</strong> {data['phoneNumber']}</p>
+            
+            <h3>Performance Details:</h3>
+            <p><strong>Date:</strong> {data['selectedDate']}</p>
+            <p><strong>Stage Name:</strong> {data['stagename']}</p>
+            <p><strong>Genre:</strong> {data['genreOfMusic']}</p>
+            <p><strong>Length of Set:</strong> {data['setLength']}</p>
+            <p><strong>Type of Music:</strong> {data['typeOfMusic']}</p>
+            <p><strong>Number of Members:</strong> {data['selectedMembers']}</p>
+            <p><strong>Power Requirements:</strong> {data['power']}</p>
+
+            <h3>Message:</h3>
+            <p style="white-space: pre-wrap;">{data['message']}</p>
+
+            <hr style="border: none; border-top: 2px solid #4CAF50; margin-top: 20px;">
+            <p style="text-align: center; font-size: 12px; color: #999;">
+                This is an automated email from your contact form.
+            </p>
+        </div>
+    </body>
+    </html>
     """
 
-    msg.attach(MIMEText(email_body, 'plain'))
+
+    msg.attach(MIMEText(email_body, 'html'))
     ics_part = MIMEApplication(ics_content, Name="event.ics")
     ics_part['Content-Disposition'] = 'attachment; filename="event.ics"'
     msg.attach(ics_part)
@@ -139,19 +163,38 @@ def send_wedding_email(data):
 
     start_date = datetime.datetime.strptime(data['selectedDate'], '%Y-%m-%d') if data.get('selectedDate') else datetime.datetime.now()
     ics_content = generate_ics("Wedding Event", start_date)
+    # HTML formatted email body
     email_body = f"""
-    Wedding Inquiry:
-    First Name: {data['firstName']}
-    Last Name: {data['lastName']}
-    Email: {data['email']}
-    Phone: {data['phoneNumber']}
-    Date: {data['selectedDate']}
-    Event Type: {data.get('eventType', 'N/A')}
-    Drinks: {data.get('drinks', 'N/A')}
-    Message: {data.get('message', 'None')}
+    <html>
+    <body style="font-family: Arial, sans-serif; color: #333;">
+        <div style="max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+            <h2 style="color: #4CAF50; text-align: center;">Wedding Inquiry</h2>
+            <hr style="border: none; border-top: 2px solid #4CAF50; margin-bottom: 20px;">
+            
+            <h3>Contact Information:</h3>
+            <p><strong>First Name:</strong> {data['firstName']}</p>
+            <p><strong>Last Name:</strong> {data['lastName']}</p>
+            <p><strong>Email:</strong> <a href="mailto:{data['email']}" style="color: #4CAF50;">{data['email']}</a></p>
+            <p><strong>Phone:</strong> {data['phoneNumber']}</p>
+
+            <h3>Event Details:</h3>
+            <p><strong>Date:</strong> {data['selectedDate']}</p>
+            <p><strong>Event Type:</strong> {data.get('eventType', 'N/A')}</p>
+            <p><strong>Open Bar:</strong> {data.get('drinks', 'N/A')}</p>
+            
+            <h3>Additional Message:</h3>
+            <p style="white-space: pre-wrap;">{data.get('message', 'None')}</p>
+
+            <hr style="border: none; border-top: 2px solid #4CAF50; margin-top: 20px;">
+            <p style="text-align: center; font-size: 12px; color: #999;">
+                This is an automated email from your wedding inquiry form.
+            </p>
+        </div>
+    </body>
+    </html>
     """
 
-    msg.attach(MIMEText(email_body, 'plain'))
+    msg.attach(MIMEText(email_body, 'html'))
     ics_part = MIMEApplication(ics_content, Name="event.ics")
     ics_part['Content-Disposition'] = 'attachment; filename="event.ics"'
     msg.attach(ics_part)
