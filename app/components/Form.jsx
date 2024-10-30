@@ -53,7 +53,7 @@ export default function Form() {
   
     // Collect common data
     const formData = {
-      selectedForm: selectedValue, // Add selectedValue to capture form type
+      selectedValue, // Add selectedValue to capture form type
       firstName,
       lastName,
       email,

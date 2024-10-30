@@ -56,7 +56,7 @@ def submit_form():
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()
             server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, msg.as_string())
+            server.sendmail(EMAIL_ADDRESS, "critesabrandon@gmail.com", msg.as_string())
             print("Email sent successfully.")
 
         return jsonify({"status": "Email sent successfully!"})
@@ -69,14 +69,14 @@ def send_band_email(data):
     """Handles email sending for band inquiries."""
     msg = MIMEMultipart()
     msg['From'] = EMAIL_ADDRESS
-    msg['To'] = EMAIL_ADDRESS
+    msg['To'] = "critesabrandon@gmail.com"
     msg['Subject'] = 'Band Inquiry Submission'
 
     # Parse the date or set a default date
     start_date = datetime.datetime.strptime(data['selectedDate'], '%Y-%m-%d') if data.get('selectedDate') else datetime.datetime.now()
  
     # Generate ICS file specific to band performances
-    ics_content = generate_ics("Band Performance", start_date)
+    ics_content = generate_ics(data['stagename'], start_date)
     email_body = f"""
     <html>
     <body style="font-family: Arial, sans-serif; color: #333;">
