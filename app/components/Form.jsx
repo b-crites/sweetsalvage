@@ -9,22 +9,36 @@ export default function Form() {
   const [power, setPower] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [typeOfMusic, setTypeOfMusic] = useState("");
+  const [genreOfMusic, setGenreOfMusic] = useState("");
+  const [stagename, setStageName] = useState("");
   const [eventType, setEventType] = useState("");
   const [drinks, setDrinks] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [message, setMessage] = useState("");
+
   
+
 
   const handleChange = (e) => setSelectedValue(e.target.value);
   const handleMemberChange = (e) => setSelectedMembers(e.target.value);
   const handleMusicChange = (e) => setTypeOfMusic(e.target.value);
   const handleSetChange = (e) => setSetLength(e.target.value);
+  const handleGenreChange = (e) => setGenreOfMusic(e.target.value);
+  const handleStagenameChange = (e) => setStageName(e.target.value);
   const handlePowerChange = (e) => setPower(e.target.value);
   const handleEventChange = (e) => setEventType(e.target.value);
   const handleDrinkChange = (e) => setDrinks(e.target.value);
   const handleDateChange = (e) => setSelectedDate(e.target.value);
+  const handleFirstName = (e) => setFirstName(e.target.value);
+  const handleLastName = (e) => setLastName(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
+//  const handleMessageChange = (e) => setMessage(e.target.value);
+  
+
   
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -34,7 +48,7 @@ export default function Form() {
 
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
     // Collect common data
@@ -44,8 +58,18 @@ export default function Form() {
       lastName,
       email,
       phoneNumber,
+      selectedDate,
+      typeOfMusic,
+      eventType,
+      message,  // Add any additional form data
+      drinks,
+      genreOfMusic,
+      setLength,
+      stagename,
+      selectedMembers,
+      power,
     };
-  
+
     // Add data based on selected form
     if (selectedValue === "band") {
       formData.typeOfMusic = typeOfMusic;
@@ -58,9 +82,25 @@ export default function Form() {
       formData.drinks = drinks;
       formData.weddingDate = selectedDate;
     }
-  
-    // Log the form data with only active fields
-    console.log("Form data:", formData);
+    
+    //Log the form data with active fields
+    console.log("Sending form data:", formData);  // consolidated log
+
+    //send form data to the backend
+    try {
+      const response = await fetch('http://localhost:5000/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+
+
+ 
     setShowBanner(true);
     setTimeout(() => {
       setShowBanner(false);
@@ -245,6 +285,8 @@ export default function Form() {
       <input
         className="block w-full p-2 border border-gray-300 rounded-md"
         placeholder="Genre of Music"
+        value={genreOfMusic}
+        onChange={handleGenreChange}
         type="text"
         required
       />
@@ -267,6 +309,8 @@ export default function Form() {
       {/* STAGE NAME */}
       <input className="block w-full p-2 border border-gray-300 rounded-md"
       placeholder="Band Name/Stage Name"
+      value={stagename}
+      onChange={handleStagenameChange}
       type="text"
       required
       />
@@ -339,9 +383,12 @@ export default function Form() {
         {/* MESSAGES */}
     </div>
         <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">Anything else we should know? (Optional)</label>
-        <textarea id="message" className="block w-full p-2 border border-gray-300 rounded-md" placeholder="Message">
-
-        </textarea>
+        <textarea id="message" 
+          className="block w-full p-2 border border-gray-300 rounded-md" 
+          placeholder="Message"
+          value={message} //connecting to the state
+          onChange={(e) => setMessage(e.target.value)}
+        ></textarea>
         <div className="mt-2 grid justify-items-end">
 
           <button className="active:scale-95 duration-75 rounded-md bg-red-400 text-white px-4 py-2">Submit</button>
@@ -410,6 +457,8 @@ export default function Form() {
             <textarea
               className="block w-full p-2 border border-gray-300 rounded-md"
               placeholder="Message"
+              value={message} //connecting to the state
+              onChange={(e) => setMessage(e.target.value)}
             ></textarea>
             <div className="mt-2 grid justify-items-end">
 
@@ -424,6 +473,8 @@ export default function Form() {
             <textarea
               className="block w-full p-2 border border-gray-300 rounded-md"
               placeholder="Message"
+              value={message} //connecting to the state
+              onChange={(e) => setMessage(e.target.value)}
             ></textarea>
             <div className="mt-2 grid justify-items-end">
 
