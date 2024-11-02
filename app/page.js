@@ -7,25 +7,25 @@ import Form from "./components/Form";
 export default function Home() {
   const events = [
     {
-      date: "18",
-      day: "FRI",
+      date: "29",
+      day: "TUES",
       month: "OCT",
-      name: "Luke Bryan",
-      description: "This is where Luke Bryan will be on this date",
+      name: "James Fuller",
+      description: "Join us to watch James Fuller perform!",
     },
     {
-      date: "20",
-      day: "SUN",
-      month: "OCT",
-      name: "Luke Bryan",
-      description: "This is where Luke Bryan will be on this date",
-    },
-    {
-      date: "26",
+      date: "09",
       day: "SAT",
-      month: "OCT",
-      name: "Luke Bryan",
-      description: "This is where Luke Bryan will be on this date",
+      month: "NOV",
+      name: "The Cramer Boys",
+      description: "This is where The Cramer Boys will be on this date",
+    },
+    {
+      date: "11",
+      day: "MON",
+      month: "NOV",
+      name: "Visionary Advance Showcase",
+      description: "This is where Visionary Advance will be on this date",
     },
   ];
 
