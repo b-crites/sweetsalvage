@@ -66,11 +66,11 @@ export default function Home() {
         {/* LANDING IMG */}
         <div className="relative h-96 w-full">
   <img className="h-full w-full object-cover" src="/Img/Farm.jpg" alt="" />
-  <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+  <div className="absolute inset-0 bg-black bg-opacity-50 flex text-center justify-center items-center">
     <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
   </div>
 </div>
-<Form />
+
 
 
         {/* ================================================= */}
@@ -143,7 +143,7 @@ export default function Home() {
   </div>
   <div className="order-1 lg:order-2 col-span-1  mx-auto flex flex-col justify-center h-full text-center">
     <h3 className="text-center font-bold text-5xl font-serif mb-4">About Us</h3>
-    <p className="lg:mx-10">
+    <p className="lg:mx-10 mx-6">
       Welcome to Sweet Salvage – your go-to spot for cool, vintage vibes
       and good times! Inside, you’ll find a mix of farmhouse decor,
       unique finds, and all the cozy stuff to make your space feel

@@ -19,6 +19,9 @@ export default function Form() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
 
+  
+
+
   const handleChange = (e) => setSelectedValue(e.target.value);
   const handleMemberChange = (e) => setSelectedMembers(e.target.value);
   const handleMusicChange = (e) => setTypeOfMusic(e.target.value);
@@ -35,6 +38,7 @@ export default function Form() {
   const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
 //  const handleMessageChange = (e) => setMessage(e.target.value);
   
+
   
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -46,10 +50,10 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Collect common data
     const formData = {
-      selectedValue,
+      selectedForm: selectedValue, // Add selectedValue to capture form type
       firstName,
       lastName,
       email,
@@ -66,8 +70,23 @@ export default function Form() {
       power,
     };
 
-    console.log("Sending form data:", formData);  // Add this to check the data being sent
+    // Add data based on selected form
+    if (selectedValue === "band") {
+      formData.typeOfMusic = typeOfMusic;
+      formData.selectedMembers = selectedMembers;
+      formData.setLength = setLength;
+      formData.power = power;
+      formData.performanceDate = selectedDate;
+    } else if (selectedValue === "wedding") {
+      formData.eventType = eventType;
+      formData.drinks = drinks;
+      formData.weddingDate = selectedDate;
+    }
+    
+    //Log the form data with active fields
+    console.log("Sending form data:", formData);  // consolidated log
 
+    //send form data to the backend
     try {
       const response = await fetch('http://localhost:5000/submit-form', {
         method: 'POST',
@@ -79,7 +98,15 @@ export default function Form() {
     } catch (error) {
       console.error("Error submitting form:", error);
     }
+
+
+ 
+    setShowBanner(true);
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 5000); 
   };
+  
 
   const closeBanner = () => {
     setShowBanner(false);
@@ -150,7 +177,7 @@ export default function Form() {
           opacity: 0.8; /* Optional hover effect */
         }
       `}</style>
-      <div className="rounded-xl bg-white max-w-96 min-w-fit p-4 border border-black mx-auto my-20">
+      <div className="rounded-xl bg-white max-w-96 min-w-fit p-4 border border-black mx-auto ">
         <h1 className="text-lg text-center font-bold mb-4">Inquiry Form</h1>
 
         <label
@@ -159,6 +186,7 @@ export default function Form() {
         >
           Select a Form
         </label>
+        <form onSubmit={handleSubmit}>
         <select
           id="dropdown"
           value={selectedValue}
@@ -172,7 +200,6 @@ export default function Form() {
           <option value="wedding">Wedding Form</option>
           <option value="contact">Contact Form</option>
         </select>
-        <form onSubmit={handleSubmit}>
         <div className="pt-4">
           <label
             htmlFor="name"
