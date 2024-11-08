@@ -41,6 +41,12 @@ function Header() {
             <Link href="/about-us"><button>About</button></Link>
           </li>
           <li>
+            <Link href="/sweet-market"><button>Sweet Market</button></Link>
+          </li>
+          <li>
+            <Link href="/bands"><button>Bands</button></Link>
+          </li>
+          <li>
           <Link href="/events"><button>Events</button></Link></li>
          <li> <Link href="/menus"><button>Menus</button></Link></li>
        <li>   <Link href="/contact"><button>Contact Us</button></Link>     </li>
