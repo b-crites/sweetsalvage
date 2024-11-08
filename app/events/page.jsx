@@ -29,6 +29,51 @@ export default function Events() {
     
   ]);
 
+  const bandEvents = [
+    {
+      date: "29",
+      day: "TUES",
+      month: "OCT",
+      name: "James Fuller",
+      description: "Join us to watch James Fuller perform!",
+    },
+    {
+      date: "09",
+      day: "SAT",
+      month: "NOV",
+      name: "The Cramer Boys",
+      description: "This is where The Cramer Boys will be on this date",
+    },
+    {
+      date: "11",
+      day: "MON",
+      month: "NOV",
+      name: "Visionary Advance ",
+      description: "This is where Visionary Advance will be on this date",
+    },
+    {
+      date: "29",
+      day: "TUES",
+      month: "OCT",
+      name: "James Fuller",
+      description: "Join us to watch James Fuller perform!",
+    },
+    {
+      date: "09",
+      day: "SAT",
+      month: "NOV",
+      name: "The Cramer Boys",
+      description: "This is where The Cramer Boys will be on this date",
+    },
+    {
+      date: "11",
+      day: "MON",
+      month: "NOV",
+      name: "Visionary Advance ",
+      description: "This is where Visionary Advance will be on this date",
+    },
+  ];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -105,6 +150,30 @@ export default function Events() {
 
 
   return (
+    <>
+    <div className="mt-10 ms-10 text-center lg:text-left">
+      <h2 className="font-semibold font-serif text-5xl">
+        Events
+      </h2>
+    </div>
+<div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
+{bandEvents.map((item, index) => (
+              <div
+                key={index}
+                className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8"
+              >
+                <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
+                  <h4 className="">{item.month}</h4>
+                  <h4 className="text-4xl font-semibold">{item.date}</h4>
+                </div>
+                <div className="col-span-5 ms-5">
+                  <h3 className=" font-bold text-2xl  ">{item.name}</h3>
+                  <p className="me-4">{item.description}</p>
+                </div>
+              </div>
+            ))}
+</div>
+
     <div style={{ textAlign: "center" }}>
       <MonthSelectionModal
         isOpen={showModal}
@@ -150,5 +219,6 @@ export default function Events() {
       </div>
       <EventsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} event={selectedEvent} />
     </div>
+    </>
   );
 }

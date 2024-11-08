@@ -8,3 +8,6 @@
     display: flex;
 }
 
+.bandImg:hover {
+    transform: scale(105%);
+}
