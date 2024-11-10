@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -20,6 +21,8 @@ function Header() {
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
   };
+
+ 
 
   return (
     <nav className="bg-gray-950 w-full py-6">
@@ -38,7 +41,7 @@ function Header() {
             <div className="absolute left-0 z-50 w-48 bg-white text-black rounded-md shadow-lg overflow-hidden transition-all duration-300 max-h-0 opacity-0 transform scale-y-75 group-hover:max-h-96 group-hover:opacity-100 group-hover:scale-y-100">
               <Link href="/bands"><button className="block px-4 py-2 text-sm hover:text-white hover:bg-gray-700 w-full text-left">Bands</button></Link>
               <Link href="/events"><button className="block px-4 py-2 text-sm hover:text-white hover:bg-gray-700 w-full text-left">Events</button></Link>
-              <Link href="/menus"><button className="block px-4 py-2 text-sm hover:text-white hover:bg-gray-700 w-full text-left">Menus</button></Link>
+              <Link href="/#food-trucks"> <button onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm hover:text-white hover:bg-gray-700 w-full text-left">Menus</button></Link>
             </div>
           </li>
           <li>
@@ -92,7 +95,9 @@ function Header() {
             <Link href="/events"><button>Events</button></Link>
           </li>
           <li onClick={handleMenuToggle}>
-            <Link href="/menus"><button>Menus</button></Link>
+          <Link href="/#food-trucks">
+              <button>Menu</button>
+            </Link>
           </li>
           <li onClick={handleMenuToggle}>
             <Link href="/contact"><button>Contact Us</button></Link>

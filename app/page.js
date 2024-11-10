@@ -106,7 +106,7 @@ export default function Home() {
         </div>
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
-        <div className="mx-auto">
+        <div id="food-trucks" className="mx-auto">
           <div className="pt-20 text-center text-3xl font-semibold font-serif">
             <h3 className="">Food Trucks</h3>
           </div>
