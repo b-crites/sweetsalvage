@@ -2,9 +2,15 @@
 
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import moment from "moment";
+
+
+
+
 
 export default function Home() {
-  const events = [
+  const event = [
     {
       date: "29",
       day: "TUES",
@@ -27,6 +33,37 @@ export default function Home() {
       description: "This is where Visionary Advance will be on this date",
     },
   ];
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/events"); // Adjust endpoint as needed
+        const data = await response.json();
+        
+        // Transform and sort events by start date
+        const formattedEvents = data.map((event) => ({
+          start: new Date(event.start),
+          title: event.summary,
+          description: event.description,
+          location: event.location,
+        }));
+  
+        // Sort events by start date and keep only the three nearest events
+        const nearestEvents = formattedEvents
+          .sort((a, b) => a.start - b.start)
+          .slice(0, 3);
+  
+        setEvents(nearestEvents);
+      } catch (error) {
+        console.error("Error fetching nearest events:", error);
+      }
+    }
+  
+    fetchEvents();
+  }, []);
+  
 
   const food = [
     { img: "/Img/tailg8s.jpg", name: "Tailg8's", url: "https://tailg8s.com" },
@@ -75,27 +112,32 @@ export default function Home() {
         {/* ================================================= */}
         {/* Events Section */}
         <div className="w-full">
-          <div className=" text-center text-3xl font-semibold font-serif pt-5">
-            <h3 className="">Upcoming Events</h3>
+          <div className="text-center text-3xl font-semibold font-serif pt-5">
+            <h3>Upcoming Events</h3>
           </div>
           <div className="pt-10 lg:w-1/2 lg:mx-auto mx-5">
             {/* Card Start */}
-            {events.map((item, index) => (
+            {events.map((event, index) => (
               <div
                 key={index}
                 className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8"
               >
                 <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
-                  <h4 className="">{item.month}</h4>
-                  <h4 className="text-4xl font-semibold">{item.date}</h4>
+                  {/* Display Month and Date from event.start */}
+                  <h4>{moment(event.start).format("MMM")}</h4>
+                  <h4 className="text-4xl font-semibold">
+                    {moment(event.start).format("D")}
+                  </h4>
                 </div>
                 <div className="col-span-5 ms-5">
-                  <h3 className=" font-bold text-2xl  ">{item.name}</h3>
-                  <p>{item.description}</p>
+                  {/* Display title and description */}
+                  <h3 className="font-bold text-2xl">{event.title}</h3>
+                  <p>{event.description}</p>
                 </div>
               </div>
             ))}
-            <div className=" pt-10 center">
+            
+            <div className="pt-10 text-center">
               <button className="rounded-xl py-2 px-6 text-xl bg-red-500 text-white">
                 See All
               </button>
