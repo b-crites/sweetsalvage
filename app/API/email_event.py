@@ -9,9 +9,22 @@ from email.mime.application import MIMEApplication
 from flask_cors import CORS
 from dotenv import load_dotenv
 
+#google Calendar imports
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
 
 app = Flask(__name__)
-CORS(app, resources={r"/submit-form": {"origins": "http://localhost:3000"}})
+CORS(app, resources={
+    r"/submit-form": {"origins": "http://localhost:3000"},
+    r"/events": {"origins": "http://localhost:3000"}
+})
+
+#Google Calendar API scope
+SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 load_dotenv()
 
@@ -20,6 +33,63 @@ SMTP_SERVER = 'smtp.hostinger.com'
 SMTP_PORT = 587
 EMAIL_ADDRESS = 'colten.hallett@visionaryadvance.com'
 EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+
+def get_calendar_events():
+    """Fetches events up to 90 days out from the Google Calendar."""
+    creds = None
+    # Check if token.json exists and load credentials
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # Refresh or create new credentials if needed
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+  
+    try:
+        service = build('calendar', 'v3', credentials=creds)
+        now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z')
+        time_max = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=90)).isoformat().replace('+00:00', 'Z')
+
+        events_result = service.events().list(
+            calendarId='c_b763cf64a206f90c95acb809cd79fce2aa86e63eb8608c407b10cc780c9fda9a@group.calendar.google.com',  # Change to your calendar ID if needed
+            timeMin=now,
+            timeMax=time_max,
+            singleEvents=True,
+            orderBy='startTime',
+            fields='items(start,summary,description,location,attendees)'
+        ).execute()
+        events = events_result.get('items', [])
+
+        # Prepare event data
+        event_list = []
+        for event in events:
+            event_data = {
+                'start': event['start'].get('dateTime', event['start'].get('date')),
+                'summary': event.get('summary', 'No Title'),
+                'description': event.get('description', 'No Description'),
+                'location': event.get('location', 'No Location'),
+                'attendees': [attendee.get('email', 'No Email') for attendee in event.get('attendees', [])]
+            }
+            event_list.append(event_data)
+
+        print (event_list)
+        return event_list
+
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+        return []
+
+@app.route('/events', methods=['GET'])
+def events():
+    """Api endpoint to fetch calendar events."""
+    events = get_calendar_events()
+    return jsonify(events)
+
 
 def generate_ics(event_name, start_date):
     """Create an ICS file for the event."""
