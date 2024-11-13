@@ -1,9 +1,9 @@
 "use client";
 
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { FaFacebookF,FaInstagram  } from "react-icons/fa";
 
 
 
@@ -68,7 +68,7 @@ export default function Home() {
   const food = [
     { img: "/Img/tailg8s.jpg", name: "Tailg8's", url: "https://tailg8s.com" },
     {
-      img: " /Img/Calle_Steelo_Logo.jpg",
+      img: " /Img/Calle Steelo Logo.jpg",
       name: "Calle Steelo Taqueria",
       url: "https://www.facebook.com/CalleSteeloTaqueria/",
     },
@@ -101,7 +101,7 @@ export default function Home() {
       <div className="">
         {/* LANDING IMG */}
         <div className="relative h-96 w-full">
-  <img className="h-full w-full object-cover" src="/Img/Farm.jpg" alt="" />
+  <img className="h-full w-full object-cover" src="/Img/Barn.jpg" alt="" />
   <div className="absolute inset-0 bg-black bg-opacity-50 flex text-center justify-center items-center">
     <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
   </div>
@@ -165,7 +165,7 @@ export default function Home() {
                   />
 
                   {/* Hover effect */}
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute h-72 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                     <p className="text-white text-lg font-bold">{item.name}</p>
                   </div>
                 </a>
@@ -213,11 +213,11 @@ export default function Home() {
   <h3 className="flex justify-center items-center gap-2">
     Follow Us on
     <a href="https://www.instagram.com/sweetsalvagedesigns/?hl=en" target="_blank" rel="noopener noreferrer">
-    <box-icon type="logo" size='lg' name="instagram" />
+    <FaInstagram/>
     </a>
     /
     <a href="https://www.facebook.com/SweetSalvageDesigns/" target="_blank" rel="noopener noreferrer">
-    <box-icon name="facebook" size='lg' type="logo"></box-icon>
+    <FaFacebookF />
     </a>
   </h3>
 </div>
