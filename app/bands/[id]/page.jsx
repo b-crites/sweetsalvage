@@ -18,7 +18,7 @@ const BandPage = ({ params }) => {
         <div className=' col-span-1 mt-10 ms-10'>
         <h1 className='font-semibold text-5xl'>{band.name}</h1>
         </div>
-    <div className=' col-span-1 w-8/12'>
+    <div className=' mt-10 col-span-1 w-10/12'>
     <div className='grid lg:grid-cols-2 grid-cols-1'>
         <div className=' col-span-1'>
       <p className='pt-5 ms-10 font-semibold text-xl'><span className='text-xl font-bold'>Band Member(s): </span> {band.members}</p>
@@ -28,9 +28,14 @@ const BandPage = ({ params }) => {
       
       </div>
       </div>
-      </div>
-      <button className=' bg-gray-300 rounded-md py-2 px-4' onClick={() => router.back()}>Go Back</button>
+    <div className='col-span-1 ms-auto'>
+        <img className='bg-red-600 h-80' src={band.img}/>
     </div>
+      </div>
+    </div>
+      <div className='ms-10 pt-10'>
+      <button className=' bg-gray-300 rounded-md py-2 px-4' onClick={() => router.back()}>Go Back</button>
+      </div>
     </div>
   );
 };

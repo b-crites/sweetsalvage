@@ -136,17 +136,21 @@ export default function Home() {
                 </div>
               </div>
             ))}
+
             
             <div className="pt-10 text-center">
-              <button className="rounded-xl py-2 px-6 text-xl bg-red-500 text-white">
+               <Link href="/events">
+              <button className="active:scale-95 duration-75 rounded-lg bg-red-400 text-white px-4 py-2">
+
                 See All
               </button>
+              </Link>
             </div>
           </div>
         </div>
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
-        <div className="mx-auto">
+        <div id="food-trucks" className="mx-auto">
           <div className="pt-20 text-center text-3xl font-semibold font-serif">
             <h3 className="">Food Trucks</h3>
           </div>
@@ -198,7 +202,7 @@ export default function Home() {
   </div>
     <div className="mt-3 center">
     <Link href="about-us">
-    <button className="active:scale-95 duration-75 rounded-md bg-red-400 text-white px-4 py-2">View More</button>
+    <button className="active:scale-95 duration-75 rounded-lg bg-red-400 text-white px-4 py-2">View More</button>
     </Link>
 </div>
 

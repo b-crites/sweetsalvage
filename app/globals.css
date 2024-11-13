@@ -2,12 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-.center{
-    justify-content: center;
-    align-items: center;
-    display: flex;
+@import url("https://fonts.googleapis.com/css2?family=Parisienne&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.center {
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .bandImg:hover {
-    transform: scale(105%);
+  transform: scale(105%);
+}
+
+.cursiveFont {
+    font-family: "Parisienne" !important;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
+.bgBeige {
+  background-color: #fefae0;
+}
+
+@media (min-width: 1280px) {
+  .heroH {
+    height: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroH {
+    height: 400px;
+  }
+
+  /* Add more properties as needed */
 }
