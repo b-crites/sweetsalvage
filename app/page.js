@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {delay, motion} from "framer-motion";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { FaFacebookF,FaInstagram  } from "react-icons/fa";
@@ -111,9 +112,10 @@ export default function Home() {
 
         {/* ================================================= */}
         {/* Events Section */}
-        <div className="w-full">
-          <div className="text-center text-3xl font-semibold font-serif pt-5">
-            <h3>Upcoming Events</h3>
+        <motion.div initial={{ opacity: 0, x:"-20px" }}
+  whileInView={{ opacity: 1, x: "0px" }} transition={{duration:1}} viewport={{ once: true }} className="w-full">
+          <div className=" text-center text-3xl font-semibold font-serif pt-5">
+            <h3 className="">Upcoming Events</h3>
           </div>
           <div className="pt-10 lg:w-1/2 lg:mx-auto mx-5">
             {/* Card Start */}
@@ -147,10 +149,11 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
-        <div id="food-trucks" className="mx-auto">
+        <motion.div initial={{ opacity: 0, x:"-20px" }}
+  whileInView={{ opacity: 1, x: "0px" }} transition={{duration:1}} viewport={{ once: true }} id="food-trucks" className="mx-auto">
           <div className="pt-20 text-center text-3xl font-semibold font-serif">
             <h3 className="">Food Trucks</h3>
           </div>
@@ -172,11 +175,12 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
       {/* ======================================================================================================== */}
       {/* About Section */}
-      <div className="lg:mt-20">
+      <motion.div initial={{ opacity: 0, x:"-20px" }}
+  whileInView={{ opacity: 1, x: "0px" }} transition={{duration:1, delay:.5}} viewport={{ once: true }} className="lg:mt-20">
         
       <div className="grid mx-auto mt-20 grid-cols-1 lg:grid-cols-2 w-11/12 lg:w-8/12">
   <div className="col-span-1 order-2 lg:order-1 mx-auto">
@@ -206,7 +210,7 @@ export default function Home() {
     </Link>
 </div>
 
-      </div>
+      </motion.div>
       {/* ======================================================================================================================= */}
       {/* IG POSTS */}
       <div className="font-bold text-3xl font-serif text-center mt-20">
