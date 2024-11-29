@@ -1,75 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import {delay, motion} from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { FaFacebookF,FaInstagram  } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
+async function fetchEvents() {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/events", { cache: "no-store" });
+    const data = await response.json();
 
+    // Transform and sort events by start date
+    const formattedEvents = data.map((event) => ({
+      start: new Date(event.start),
+      title: event.summary,
+      description: event.description,
+      location: event.location,
+    }));
 
-
+    // Sort events by start date and keep only the three nearest events
+    return formattedEvents.sort((a, b) => a.start - b.start).slice(0, 3);
+  } catch (error) {
+    console.error("Error fetching nearest events:", error);
+    return []; // Return empty array on error
+  }
+}
 
 export default function Home() {
-  const event = [
-    {
-      date: "29",
-      day: "TUES",
-      month: "OCT",
-      name: "James Fuller",
-      description: "Join us to watch James Fuller perform!",
-    },
-    {
-      date: "09",
-      day: "SAT",
-      month: "NOV",
-      name: "The Cramer Boys",
-      description: "This is where The Cramer Boys will be on this date",
-    },
-    {
-      date: "11",
-      day: "MON",
-      month: "NOV",
-      name: "Visionary Advance Showcase",
-      description: "This is where Visionary Advance will be on this date",
-    },
-  ];
-
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const response = await fetch("http://127.0.0.1:5000/events"); // Adjust endpoint as needed
-        const data = await response.json();
-        
-        // Transform and sort events by start date
-        const formattedEvents = data.map((event) => ({
-          start: new Date(event.start),
-          title: event.summary,
-          description: event.description,
-          location: event.location,
-        }));
-  
-        // Sort events by start date and keep only the three nearest events
-        const nearestEvents = formattedEvents
-          .sort((a, b) => a.start - b.start)
-          .slice(0, 3);
-  
-        setEvents(nearestEvents);
-      } catch (error) {
-        console.error("Error fetching nearest events:", error);
-      }
+    // Fetch events when the component mounts
+    async function loadEvents() {
+      const fetchedEvents = await fetchEvents();
+      setEvents(fetchedEvents);
     }
-  
-    fetchEvents();
+    loadEvents();
   }, []);
-  
 
   const food = [
     { img: "/Img/tailg8s.jpg", name: "Tailg8's", url: "https://tailg8s.com" },
     {
-      img: " /Img/Calle Steelo Logo.jpg",
+      img: "/Img/Calle Steelo Logo.jpg",
       name: "Calle Steelo Taqueria",
       url: "https://www.facebook.com/CalleSteeloTaqueria/",
     },

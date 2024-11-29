@@ -1,3 +1,6 @@
+import { Great_Vibes } from 'next/font/google';
+const greatFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
+
 export default function About() {
   return (
     <>
@@ -10,7 +13,7 @@ export default function About() {
         <div className="grid lg:grid-cols-2 grid-cols-1 text-center mx-auto  w-8/12">
           <div className="col-span-1 my-auto">
             <div className="">
-              <h2 className=" font-bold text-3xl text-center">Our Journey</h2>
+              <h2 className={`font-bold ${greatFont.className} text-5xl text-center`}>Our Journey</h2>
             </div>
             <div className="pt-5 mx-3 lg:mx-10 ">
               <p>
@@ -29,7 +32,7 @@ export default function About() {
         {/* ------------------------------------------------------------------------------------ */}
         <div className="grid grid-cols-1 w-8/12 mx-auto py-10 lg:py-20">
           <div className="">
-            <h2 className="greatFont text-4xl text-center">
+            <h2 className={`text-5xl ${greatFont.className} text-center`} >
               What's Sweet Salvage?
             </h2>
           </div>
@@ -55,11 +58,11 @@ export default function About() {
         {/* --------------------------------------------------------------------------------------- */}
         <div className="grid lg:grid-cols-2 grid-cols-1 text-center mx-auto pt-10 lg:pt-20 w-8/12">
           <div className="pt-10 lg:pt-0 order-2 lg:order-1">
-            <img className="w-96 h-72 mx-auto" src="/Img/View.png" alt="" />
+            <img className="w-96  mx-auto" src="/Img/Jennifer.jpg" alt="" />
           </div>
           <div className="col-span-1 my-auto lg:order-2 order-1">
             <div className="">
-              <h2 className=" font-bold text-3xl text-center">Our Journey</h2>
+              <h2 className={`font-bold ${greatFont.className} text-5xl text-center`}>About Jennifer</h2>
             </div>
             <div className="lg:pt-5 mx-3 lg:mx-10 ">
               <p>
