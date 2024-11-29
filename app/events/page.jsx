@@ -2,7 +2,7 @@
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import MonthSelectionModal from "../components/MonthSelectionModal";
 import EventsModal from "../components/EventsModal";
@@ -18,7 +18,7 @@ export default function Events() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedMonths, setSelectedMonths] = useState(""); // State for selected months
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
-
+  const presentationRef = useRef(null); // Ref for full-screen container
 
   const handleEventClick = (event) => {
     setSelectedEvent(event);
@@ -30,20 +30,20 @@ export default function Events() {
     async function fetchEvents() {
       try {
         const response = await fetch("http://127.0.0.1:5000/events"); // Replace with your actual API endpoint
-        
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        
+
         const data = await response.json();
         console.log("Fetched data:", data); // Log raw data to check the structure
-  
+
         // Transform data to fit `react-big-calendar` format
         const formattedEvents = data.map((event) => {
           const startDate = new Date(event.start);
           const endDate = new Date(startDate);
           endDate.setHours(startDate.getHours() + 1); // Set end time to 1 hour after start
-  
+
           return {
             start: startDate,
             end: endDate,
@@ -52,15 +52,15 @@ export default function Events() {
             location: event.location, // Optional: include location if needed
           };
         });
-        
+
         console.log("Formatted events:", formattedEvents); // Log formatted data
-        
+
         setEvents(formattedEvents); // Update `events` state with fetched data
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     }
-  
+
     fetchEvents(); // Call the function to load events
   }, []);
 
@@ -69,7 +69,7 @@ export default function Events() {
     setIsClient(true);
   }, []);
 
-  //handles the date change inpresentation mode
+  // Handle the date change in presentation mode
   useEffect(() => {
     let interval;
     let monthIndex = 0; // Initialize month index to track the current month in rotation
@@ -88,7 +88,7 @@ export default function Events() {
         if (monthIndex > selectedMonths) {
           monthIndex = 0; // Restart the rotation
         }
-      }, 1000); // Change month every 15 seconds
+      }, 15000); // Change month every 15 seconds
     }
 
     return () => {
@@ -96,7 +96,7 @@ export default function Events() {
     };
   }, [isPresentationMode, selectedMonths]); // Include selectedMonths in dependency array
 
-  //Key event listeners for additional functionalities
+  // Key event listeners for additional functionalities
   useEffect(() => {
     const handleKeyDown = (event) => {
       // Check for Ctrl + P to show modal
@@ -107,15 +107,16 @@ export default function Events() {
 
       // Check for Esc to exit presentation mode
       if (event.key === "Escape") {
-        setIsPresentationMode(false);
+        if (isPresentationMode) {
+          exitPresentation();
+        }
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [isPresentationMode]);
 
   const handleNavigate = (date) => {
     setCurrentDate(date);
@@ -124,12 +125,28 @@ export default function Events() {
   const startPresentation = () => {
     setShowModal(false);
     setIsPresentationMode(true);
-    // Set the current date to include the selected months in the rotation
     setCurrentDate(new Date()); // Reset to the current date for the presentation
+
+    // Request full-screen mode for the presentation container
+    if (presentationRef.current?.requestFullscreen) {
+      presentationRef.current.requestFullscreen().catch((error) => {
+        console.error("Failed to enter full-screen mode:", error);
+      });
+    }
   };
 
-  if (!isClient) return null; //Ensures server-side rendering works without client-specific code errors
+  const exitPresentation = () => {
+    setIsPresentationMode(false);
 
+    // Exit full-screen mode
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch((error) => {
+        console.error("Failed to exit full-screen mode:", error);
+      });
+    }
+  };
+
+  if (!isClient) return null; // Ensures server-side rendering works without client-specific code errors
 
   return (
     <>
@@ -138,7 +155,6 @@ export default function Events() {
       </div>
 
       <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
-        {/* Example event display outside the calendar */}
         {events.map((item, index) => (
           <div
             key={index}
@@ -151,14 +167,13 @@ export default function Events() {
               </h4>
             </div>
             <div className="col-span-5 ms-5">
-              <h3 className=" font-bold text-2xl">{item.title}</h3>
-              {/* Add any additional event info here */}
+              <h3 className="font-bold text-2xl">{item.title}</h3>
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{ textAlign: "center" }}>
+      <div ref={presentationRef} style={{ textAlign: "center" }}>
         <MonthSelectionModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
@@ -176,15 +191,32 @@ export default function Events() {
             zIndex: isPresentationMode ? 1000 : "initial",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
             alignItems: "center",
             overflow: isPresentationMode ? "hidden" : "initial",
           }}
         >
           {isPresentationMode && (
-            <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>
-              {moment(currentDate).format("MMMM YYYY")}
-            </h2>
+            <>
+              <h2 style={{ fontSize: "2rem", position:'absolute', top:'10%' }}>
+                {moment(currentDate).format("MMMM YYYY")}
+              </h2>
+              <div
+  style={{
+    display: isPresentationMode ? "flex" : "none",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row", // Changed from column to row
+    position: "absolute",
+    bottom: 10,
+    width: "100%",
+    zIndex: 1001,
+  }}
+>
+  <p className="font-semibold italic text-3xl mr-4">Powered by</p>
+  <img src="/Img/VaLogo.png" alt="Logo" className="w-44" />
+</div>
+
+            </>
           )}
           <Calendar
             localizer={localizer}
@@ -192,12 +224,15 @@ export default function Events() {
             onNavigate={handleNavigate}
             defaultView="month"
             views={["month"]}
-            events={events} // Pass fetched events to the calendar
+            events={events}
             style={{
-              height: isPresentationMode ? "80vh" : "500px",
-              width: isPresentationMode ? "90vw" : "75%",
+              position: isPresentationMode ? "absolute" : "relative", // Position the calendar absolutely in presentation mode
+              top: isPresentationMode ? "15%" : "initial", // Adjust the calendar's vertical position in presentation mode
+              height: isPresentationMode ? "65vh" : "500px",
+              width: isPresentationMode ? "85vw" : "75%",
+              zIndex: isPresentationMode ? 999 : "initial", // Ensure the calendar stays on top in presentation mode
             }}
-            toolbar={!isPresentationMode} // Only show the toolbar when not in presentation mode
+            toolbar={!isPresentationMode}
             onSelectEvent={handleEventClick}
           />
         </div>
