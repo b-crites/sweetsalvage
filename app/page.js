@@ -75,7 +75,7 @@ export default function Home() {
       <div className="">
         {/* LANDING IMG */}
         <div className="relative h-96 w-full">
-  <img className="h-full w-full object-cover" src="/Img/Barn.jpg" alt="" />
+  <img className="h-full w-full object-cover" loading="lazy" src="/Img/Barn.jpg" alt="" />
   <div className="absolute inset-0 bg-black bg-opacity-50 flex text-center justify-center items-center">
     <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
   </div>
