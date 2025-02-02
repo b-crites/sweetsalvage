@@ -65,16 +65,15 @@ export default function Market() {
           <div className="lg:mx-3 pt-5 text-center">
             <p>
               
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            Sweet Salvage Markets is a place where every find feels special.
+             We bring together a mix of timeless antiques, hand-poured candles,
+              and locally made treats like pickles, honey, and other delicious
+               preserves. Our clothing collection is all about cozy comfort 
+               with a touch of effortless style—pieces that feel as good as they look. 
+               Alongside these treasures, we showcase a variety of local vendors
+                offering unique handmade goods, home décor, and more. Whether you're
+                 looking for something nostalgic, something handcrafted, or just a little something
+                  for yourself, Sweet Salvage is the perfect spot to explore and enjoy
             </p>
           </div>
          
@@ -86,11 +85,11 @@ export default function Market() {
             </div>
             <div className="pt-5 mx-3 lg:mx-10 ">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              Sweet Salvage Markets may be young, but its journey has been nothing short of exciting.
+               Founded in 2022, we began with just our original market location. But thanks to dynamic
+                online marketing and a growing community, we expanded in a big way—introducing the Sweet Salvage Pavilion! 
+                This addition transformed our space, bringing in food trucks,
+               live events, and a lively beer garden, turning Sweet Salvage into more than just a market—it’s an experience.
               </p>
             </div>
           </div>

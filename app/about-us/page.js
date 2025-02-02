@@ -17,11 +17,16 @@ export default function About() {
             </div>
             <div className="pt-5 mx-3 lg:mx-10 ">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              Sweet Salvage Markets started as a simple idea—a place where community,
+               creativity, and local craftsmanship could come together. From our humble
+                beginnings in 2022 with just a single market location, we’ve grown into 
+                something much more. What started as a small marketplace has blossomed into a vibrant gathering 
+                 spot where people can shop, connect, and celebrate the charm of unique finds.
+                  Every vendor, every product, and every event we host is a reflection of the 
+                  heart and soul we pour into making Sweet Salvage more than just a market—it’s
+                   an experience. And this is just the beginning of our journey.
+
+
               </p>
             </div>
           </div>
@@ -38,17 +43,16 @@ export default function About() {
           </div>
           <div className="lg:mx-3 pt-5 text-center">
             <p>
-              
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            Sweet Salvage is more than just a market—it’s a place where nostalgia meets creativity,
+             and local craftsmanship shines. We bring together a thoughtfully curated mix of antiques,
+              handmade goods, cozy yet stylish clothing, and locally made treats like pickles, honey,
+               and preserves. But it doesn’t stop there.
+               At Sweet Salvage, we believe shopping should be an experience.
+                That’s why we’ve expanded beyond just a marketplace. With the Sweet Salvage 
+                Pavilion, we’ve created a welcoming space for food trucks, live music, and a lively beer
+                 garden where the community can gather, unwind, and enjoy something special.
+                 Whether you’re here to find a unique treasure, support local artisans,
+                  or just soak in the atmosphere, Sweet Salvage is a place to explore, connect, and enjoy.
             </p>
           </div>
           <div className="lg:pt-10 pt-0">
@@ -66,11 +70,17 @@ export default function About() {
             </div>
             <div className="lg:pt-5 mx-3 lg:mx-10 ">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              Sweet Salvage Markets was built on passion, hard work, and the determination to turn a 
+              vision into reality. As an entrepreneur, the owner faced the challenges of starting a
+               business head-on—navigating the ups and downs, learning through experience, and pushing 
+               forward despite the obstacles.
+               With a love for unique finds and a drive to create something special,
+                she turned Sweet Salvage into more than just a market. It became a space where 
+                local artisans, small businesses, and the community could come together. From curating
+                 antiques to building a gathering place with food, music, and local goods, she proved 
+                 that perseverance and heart can turn a dream into a thriving business.
+                 Sweet Salvage is a reflection of that journey—one of resilience, creativity, 
+                 and the belief that great things happen when you keep going.
               </p>
             </div>
           </div>
