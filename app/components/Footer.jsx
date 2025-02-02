@@ -14,20 +14,23 @@ function Footer() {
               </h4>
 
               <div className="mt-6 lg:mb-0 mb-6 flex">
-  <button
-    className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2"
-    type="button"
-  >
-    <FaFacebook className="text-4xl" />
-  </button>
-  <button
-    className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2"
-    type="button"
-  >
-    <FaInstagram className="text-4xl" />
-  </button>
- 
-</div>
+                <a href="https://www.facebook.com/SweetSalvageDesigns/" target="_blank" rel="noopener noreferrer">
+                  <button
+                    className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2"
+                    type="button"
+                  >
+                    <FaFacebook className="text-4xl" />
+                  </button>
+                </a>
+                <a href="https://www.instagram.com/sweetsalvagedesigns/?hl=en" target="_blank" rel="noopener noreferrer">
+                  <button
+                    className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2"
+                    type="button"
+                  >
+                    <FaInstagram className="text-4xl" />
+                  </button>
+                </a>
+              </div>
 
             </div>
             <div className="w-full lg:w-6/12 px-4">
