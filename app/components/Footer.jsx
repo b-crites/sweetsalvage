@@ -116,13 +116,13 @@ function Footer() {
           <hr className="my-6 border-blueGray-300" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
-              <div className="text-sm text-blueGray-500 font-semibold py-1">
-                All Rights Reserved <span id="get-current-year">2024</span>{''} Sweet Salvage
+            <div className="text-sm text-blueGray-500 font-semibold py-1">
+  Copyright © {new Date().getFullYear()} Sweet Salvage. All Rights Reserved.
+</div>
+              <div className="text-sm text-gray-500 font-semibold py-1">
+               Powered By <a href="https://www.visionaryadvance.com" >Visionary Advance</a>
               </div>
-              <div className="text-sm text-blueGray-500 font-semibold py-1">
-                All Rights Reserved <span id="get-current-year">2024</span>
-                Sweet Salvage
-              </div>
+             
             </div>
           </div>
         </div>

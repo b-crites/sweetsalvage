@@ -33,7 +33,16 @@ const EventsSkeleton = () => {
   );
 };
 
-export default function Events() {
+const EventComponent = ({ event }) => {
+  const startTime = moment(event.start).format('h:mm A');
+  return (
+    <span>
+      <strong>{event.title}</strong> @ {startTime}
+    </span>
+  );
+};
+
+const Events = () => {
   const [isClient, setIsClient] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isPresentationMode, setIsPresentationMode] = useState(false);
@@ -184,7 +193,7 @@ export default function Events() {
         <h2 className="font-semibold font-serif text-5xl">Events</h2>
       </div>
 
-      
+
       <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
         {events.slice(0,limit).map((item, index) => (
           <div
@@ -198,7 +207,11 @@ export default function Events() {
               </h4>
             </div>
             <div className="col-span-5 ms-5">
-              <h3 className="font-bold text-2xl">{item.title}</h3>
+              <h3 className="font-bold text-2xl">{item.title} @ {moment(item.start).format("ha")}</h3>
+
+            {item.description === "No Description" ? null : (
+  <p className="text-gray-600">{item.description}</p>
+)}
             </div>
           </div>
         ))}
@@ -265,6 +278,9 @@ export default function Events() {
             }}
             toolbar={!isPresentationMode}
             onSelectEvent={handleEventClick}
+            components={{
+              event: EventComponent,
+            }}
           />
         </div>
         <EventsModal
@@ -275,4 +291,6 @@ export default function Events() {
       </div>
     </>
   );
-}
+};
+
+export default Events;

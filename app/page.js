@@ -106,8 +106,10 @@ export default function Home() {
                 </div>
                 <div className="col-span-5 ms-5">
                   {/* Display title and description */}
-                  <h3 className="font-bold text-2xl">{event.title}</h3>
-                  <p>{event.description}</p>
+                  <h3 className="font-bold text-2xl">{event.title} @ {moment(event.start).format("hA")}</h3>
+                  {event.description === "No Description" ? null : (
+  <p className="text-gray-600">{event.description}</p>
+)}
                 </div>
               </div>
             ))}

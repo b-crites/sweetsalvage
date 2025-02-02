@@ -10,32 +10,55 @@ const BandPage = ({ params }) => {
   const band = bands.find((band) => band.id === id);
 
   if (!band) {
-    return <p>Band not found</p>; // Displays a message if the band is not found
+    return <p className="text-center text-2xl font-semibold mt-10">Band not found</p>;
   }
 
   return (
-    <div className=' mx-auto w-3/5 grid grid-cols-1'>
-        <div className=' col-span-1 mt-10 ms-10'>
-        <h1 className='font-semibold text-5xl'>{band.name}</h1>
+    <div className="min-h-screen bg-gray-100 py-12">
+      {/* Header Section */}
+      <header className="container mx-auto px-6 text-center mb-10">
+        <h1 className="font-serif text-5xl font-bold text-gray-900">
+          {band.name}
+        </h1>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-6">
+        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-2xl p-8 flex flex-col lg:flex-row gap-10">
+          {/* Left Side - Text */}
+          <div className="flex-1">
+            <p className="text-xl font-semibold">
+              <span className="text-gray-700 font-bold">Band Member(s): </span>
+              {band.members}
+            </p>
+            <p className="text-xl font-semibold mt-3">
+              <span className="text-gray-700 font-bold">Genre: </span>
+              {band.genre}
+            </p>
+            <p className="text-xl font-bold mt-6">Biography:</p>
+            <p className="text-lg text-gray-700 mt-2">{band.description}</p>
+          </div>
+
+          {/* Right Side - Image (Now fully visible) */}
+          <div className="flex-1 flex justify-center">
+            <img
+              src={band.img}
+              alt={band.name}
+              className="w-full max-w-md object-contain rounded-2xl shadow-md"
+            />
+          </div>
         </div>
-    <div className=' mt-10 col-span-1 w-10/12'>
-    <div className='grid lg:grid-cols-2 grid-cols-1'>
-        <div className=' col-span-1'>
-      <p className='pt-5 ms-10 font-semibold text-xl'><span className='text-xl font-bold'>Band Member(s): </span> {band.members}</p>
-      <p className='pt-5 ms-10 font-semibold text-xl'><span className='text-xl font-bold'>Genre:</span> {band.genre}</p>
-      <div className='mt-5 ms-10'>
-      <p className='text-xl font-bold'>Biography:<span className='font-semibold text-xl'> {band.description} </span></p>
-      
-      </div>
-      </div>
-    <div className='col-span-1 ms-auto'>
-        <img className='bg-red-600 h-80' src={band.img}/>
-    </div>
-      </div>
-    </div>
-      <div className='ms-10 pt-10'>
-      <button className=' bg-gray-300 rounded-md py-2 px-4' onClick={() => router.back()}>Go Back</button>
-      </div>
+
+        {/* Back Button */}
+        <div className="text-center mt-10">
+          <button
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-md transition"
+            onClick={() => router.back()}
+          >
+            Go Back
+          </button>
+        </div>
+      </main>
     </div>
   );
 };
