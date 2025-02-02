@@ -6,7 +6,7 @@ export default function Market() {
 
     const inside =[
         {title:"Reading Nook" , img:"/Img/Nook.jpg", desc:"Escape into our cozy reading nook, where comfort meets tranquility. Whether you're lost in a good book or simply enjoying a peaceful moment, our nook offers the perfect atmosphere for relaxation. Come unwind, sip your favorite drink, and let the world fade away as you immerse yourself in your next great read."},
-        {title:"Market" , img:"/Img/Market.jpg", desc:"Step into our market, where history meets charm. Discover a collection of unique antiques, vintage treasures, and one-of-a-kind pieces. Whether you're looking for timeless decor or a rare find, our market offers a nostalgic experience that brings the past to life."},
+        {title:"Market" , img:"/Img/Market Image.jpg", desc:"Step into our market, where history meets charm. Discover a collection of unique antiques, vintage treasures, and one-of-a-kind pieces. Whether you're looking for timeless decor or a rare find, our market offers a nostalgic experience that brings the past to life."},
         {title:"Lani Moku Chill Bar" , img:"/Img/Bar.jpg", desc:"Relax and unwind at our Lani Moku Chill Bar, where great drinks and good company meet. Whether you're enjoying a craft cocktail or a cold beer, our welcoming atmosphere makes it the perfect spot to relax with friends or make new ones. Cheers to unforgettable moments!"}
     ]
 
@@ -60,7 +60,7 @@ export default function Market() {
 
           <div className="w-10/12 mx-auto  lg:pb-5">
           <div className="lg:pt-10 pt-0">
-            <img className=" h-72 mx-auto" src="/Img/BookClub.jpg" alt="" />
+            <img className=" h-72 mx-auto" src="/Img/Flower Image.jpg" alt="" />
           </div>
           <div className="lg:mx-3 pt-5 text-center">
             <p>

@@ -9,6 +9,30 @@ import EventsModal from "../components/EventsModal";
 
 const localizer = momentLocalizer(moment);
 
+const EventsSkeleton = () => {
+  // Create an array of 6 items for skeleton loading
+  const skeletonItems = Array(6).fill(null);
+  
+  return (
+    <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
+      {skeletonItems.map((_, index) => (
+        <div
+          key={index}
+          className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8 animate-pulse"
+        >
+          <div className="col-span-1 text-center py-2 bg-gray-300 rounded-l-xl">
+            <div className="h-4 w-12 mx-auto bg-gray-400 rounded mb-2"></div>
+            <div className="h-8 w-8 mx-auto bg-gray-400 rounded"></div>
+          </div>
+          <div className="col-span-5 ms-5 py-4">
+            <div className="h-6 w-3/4 bg-gray-300 rounded"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default function Events() {
   const [isClient, setIsClient] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -19,6 +43,7 @@ export default function Events() {
   const [selectedMonths, setSelectedMonths] = useState(""); // State for selected months
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const presentationRef = useRef(null); // Ref for full-screen container
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleEventClick = (event) => {
     setSelectedEvent(event);
@@ -29,6 +54,7 @@ export default function Events() {
   useEffect(() => {
     async function fetchEvents() {
       try {
+        setIsLoading(true);
         const response = await fetch("http://127.0.0.1:5000/events"); // Replace with your actual API endpoint
 
         if (!response.ok) {
@@ -58,6 +84,8 @@ export default function Events() {
         setEvents(formattedEvents); // Update `events` state with fetched data
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
+        setIsLoading(false); // Ensure loading state is set to false
       }
     }
 
@@ -148,14 +176,17 @@ export default function Events() {
 
   if (!isClient) return null; // Ensures server-side rendering works without client-specific code errors
 
+  const limit = 6;
+
   return (
     <>
       <div className="mt-10 ms-10 text-center lg:text-left">
         <h2 className="font-semibold font-serif text-5xl">Events</h2>
       </div>
 
+      
       <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
-        {events.map((item, index) => (
+        {events.slice(0,limit).map((item, index) => (
           <div
             key={index}
             className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8"

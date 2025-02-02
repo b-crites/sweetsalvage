@@ -56,7 +56,7 @@ export default function About() {
             </p>
           </div>
           <div className="lg:pt-10 pt-0">
-            <img className="w-96 h-72 mx-auto" src="/Img/View.png" alt="" />
+            <img className=" mx-auto" src="/Img/Sweet Salvage Store.png" alt="" />
           </div>
         </div>
         {/* --------------------------------------------------------------------------------------- */}
