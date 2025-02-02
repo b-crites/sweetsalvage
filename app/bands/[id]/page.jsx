@@ -27,10 +27,13 @@ const BandPage = ({ params }) => {
         <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-2xl p-8 flex flex-col lg:flex-row gap-10">
           {/* Left Side - Text */}
           <div className="flex-1">
-            <p className="text-xl font-semibold">
-              <span className="text-gray-700 font-bold">Band Member(s): </span>
-              {band.members}
-            </p>
+          {band.members && (
+  <p className="text-xl font-semibold">
+    <span className="text-gray-700 font-bold">Band Member(s): </span>
+    {band.members}
+  </p>
+)}
+
             <p className="text-xl font-semibold mt-3">
               <span className="text-gray-700 font-bold">Genre: </span>
               {band.genre}

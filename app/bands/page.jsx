@@ -34,7 +34,7 @@ const BandsList = () => {
 const BandCard = ({ band }) => {
   return (
     <Link href={`/bands/${band.id}`} className="block">
-      <div className="group relative w-80 h-64 rounded-2xl overflow-hidden shadow-md bg-white hover:shadow-xl transition-shadow duration-300">
+      <div className="group relative w-80 h-80 rounded-2xl overflow-hidden shadow-md bg-white hover:shadow-xl transition-shadow duration-300">
         {/* Band Image */}
         <img
           src={band.img}

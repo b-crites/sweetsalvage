@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import Image from "next/image";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 async function fetchEvents() {
@@ -12,7 +13,7 @@ async function fetchEvents() {
     const data = await response.json();
 
     // Transform and sort events by start date
-    const formattedEvents = data.map((event) => ({
+    const formattedEvents = data.map((event) => ({ 
       start: new Date(event.start),
       title: event.summary,
       description: event.description,
@@ -75,7 +76,7 @@ export default function Home() {
       <div className="">
         {/* LANDING IMG */}
         <div className="relative h-96 w-full">
-  <img className="h-full w-full object-cover" loading="lazy" src="/Img/Barn.jpg" alt="" />
+  <Image className="h-full w-full object-cover" width={600} height={650} loading="lazy"  src="/Img/Barn.jpg" alt="" />
   <div className="absolute inset-0 bg-black bg-opacity-50 flex text-center justify-center items-center">
     <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
   </div>

@@ -123,7 +123,7 @@ function Footer() {
   Copyright © {new Date().getFullYear()} Sweet Salvage. All Rights Reserved.
 </div>
               <div className="text-sm text-gray-500 font-semibold py-1">
-               Powered By <a href="https://www.visionaryadvance.com" >Visionary Advance</a>
+               Powered By <a href="https://www.visionaryadvance.com" ><span className="green-Text">Visionary Advance</span></a>
               </div>
              
             </div>
