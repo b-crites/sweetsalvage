@@ -176,7 +176,7 @@ export default function Events() {
 
   if (!isClient) return null; // Ensures server-side rendering works without client-specific code errors
 
-  
+  const limit = 6;
 
   return (
     <>
@@ -184,8 +184,9 @@ export default function Events() {
         <h2 className="font-semibold font-serif text-5xl">Events</h2>
       </div>
 
+      
       <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
-        {events.map((item, index) => (
+        {events.slice(0,limit).map((item, index) => (
           <div
             key={index}
             className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8"
