@@ -9,29 +9,7 @@ import EventsModal from "../components/EventsModal";
 
 const localizer = momentLocalizer(moment);
 
-const EventsSkeleton = () => {
-  // Create an array of 6 items for skeleton loading
-  const skeletonItems = Array(6).fill(null);
-  
-  return (
-    <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
-      {skeletonItems.map((_, index) => (
-        <div
-          key={index}
-          className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8 animate-pulse"
-        >
-          <div className="col-span-1 text-center py-2 bg-gray-300 rounded-l-xl">
-            <div className="h-4 w-12 mx-auto bg-gray-400 rounded mb-2"></div>
-            <div className="h-8 w-8 mx-auto bg-gray-400 rounded"></div>
-          </div>
-          <div className="col-span-5 ms-5 py-4">
-            <div className="h-6 w-3/4 bg-gray-300 rounded"></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+
 
 const EventComponent = ({ event }) => {
   const startTime = moment(event.start).format('h:mm A');
@@ -53,7 +31,8 @@ const Events = () => {
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const presentationRef = useRef(null); // Ref for full-screen container
   const [isLoading, setIsLoading] = useState(true);
-
+  const [loading, setLoading] = useState(true);
+  
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setIsModalOpen(true);
@@ -63,43 +42,38 @@ const Events = () => {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        setIsLoading(true);
-        const response = await fetch("http://127.0.0.1:5000/events"); // Replace with your actual API endpoint
-
+        setLoading(true); // Ensure loading state is set before fetching
+  
+        const response = await fetch("http://127.0.0.1:5000/events");
+  
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-
+  
         const data = await response.json();
-        console.log("Fetched data:", data); // Log raw data to check the structure
-
-        // Transform data to fit `react-big-calendar` format
-        const formattedEvents = data.map((event) => {
-          const startDate = new Date(event.start);
-          const endDate = new Date(startDate);
-          endDate.setHours(startDate.getHours() + 1); // Set end time to 1 hour after start
-
-          return {
-            start: startDate,
-            end: endDate,
-            title: event.summary,
-            description: event.description, // Optional: include description if needed
-            location: event.location, // Optional: include location if needed
-          };
-        });
-
-        console.log("Formatted events:", formattedEvents); // Log formatted data
-
-        setEvents(formattedEvents); // Update `events` state with fetched data
+        console.log("Fetched data:", data);
+  
+        const formattedEvents = data.map((event) => ({
+          start: new Date(event.start),
+          end: new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1)),
+          title: event.summary,
+          description: event.description || "No Description",
+          location: event.location || "",
+        }));
+  
+        console.log("Formatted events:", formattedEvents);
+  
+        setEvents(formattedEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
-        setIsLoading(false); // Ensure loading state is set to false
+        setLoading(false); // Ensure the loading state is set to false
       }
     }
-
-    fetchEvents(); // Call the function to load events
+  
+    fetchEvents();
   }, []);
+  
 
   //Ensures client-side rendering for components requiring DOM manipulation
   useEffect(() => {
@@ -185,7 +159,6 @@ const Events = () => {
 
   if (!isClient) return null; // Ensures server-side rendering works without client-specific code errors
 
-  const limit = 6;
 
   return (
     <>
@@ -194,27 +167,46 @@ const Events = () => {
       </div>
 
 
-      <div className="pt-20 lg:w-1/2 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:mx-auto mx-5">
-        {events.slice(0,limit).map((item, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8"
-          >
-            <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
-              <h4>{moment(item.start).format("MMM")}</h4>
-              <h4 className="text-4xl font-semibold">
-                {moment(item.start).format("D")}
-              </h4>
-            </div>
-            <div className="col-span-5 ms-5">
-              <h3 className="font-bold text-2xl">{item.title} @ {moment(item.start).format("ha")}</h3>
-
-            {item.description === "No Description" ? null : (
-  <p className="text-gray-600">{item.description}</p>
-)}
-            </div>
-          </div>
-        ))}
+      <div className="pt-20 lg:w-1/2 gap-4 lg:mx-auto mx-5">
+      {loading ? (
+               // Loading Skeleton
+               <div className="animate-pulse grid grid-cols-1 lg:grid-cols-2">
+                 {[...Array(6)].map((_, index) => (
+                   <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
+                     <div className="col-span-1 text-center text-white py-2 bg-gray-300 rounded-l-xl ">
+                       <div className="h-8 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
+                       <div className="h-12 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
+                     </div>
+                     <div className="col-span-5 ms-5">
+                       <div className="h-6 bg-gray-400 rounded w-3/4 mt-2"></div>
+                       <div className="h-4 bg-gray-400 rounded w-1/2 mt-2"></div>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+             ) : (
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
+               {/* Events */}
+               {events.slice(0,6).map((event, index) => (
+                 <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
+                   <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
+                     {/* Display Month and Date from event.start */}
+                     <h4>{moment(event.start).format("MMM")}</h4>
+                     <h4 className="text-4xl font-semibold">
+                       {moment(event.start).format("D")}
+                     </h4>
+                   </div>
+                   <div className="col-span-5 ms-5">
+                     {/* Display title and description */}
+                     <h3 className="font-bold text-2xl">{event.title} @ {moment(event.start).format("ha")}</h3>
+                     {event.description === "No Description" ? null : (
+                       <p className="text-gray-600">{event.description}</p>
+                     )}
+                   </div>
+                 </div>
+               ))}
+             </div>
+             )}
       </div>
 
       <div ref={presentationRef} style={{ textAlign: "center" }}>
@@ -230,7 +222,7 @@ const Events = () => {
             top: 0,
             left: 0,
             width: "100vw",
-            height: "100vh",
+            height: isPresentationMode ? "100vh" : "auto",
             backgroundColor: isPresentationMode ? "white" : "initial",
             zIndex: isPresentationMode ? 1000 : "initial",
             display: "flex",
@@ -273,7 +265,7 @@ const Events = () => {
               position: isPresentationMode ? "absolute" : "relative", // Position the calendar absolutely in presentation mode
               top: isPresentationMode ? "15%" : "initial", // Adjust the calendar's vertical position in presentation mode
               height: isPresentationMode ? "65vh" : "500px",
-              width: isPresentationMode ? "85vw" : "75%",
+              width: isPresentationMode ? "85vw" : "90%",
               zIndex: isPresentationMode ? 999 : "initial", // Ensure the calendar stays on top in presentation mode
             }}
             toolbar={!isPresentationMode}

@@ -10,7 +10,7 @@ export default function About() {
             About Us
           </h1>
         </div>
-        <div className="grid lg:grid-cols-2 grid-cols-1 text-center mx-auto  w-8/12">
+        <div className="grid lg:grid-cols-2 grid-cols-1 text-center mx-auto w-11/12  lg:w-8/12">
           <div className="col-span-1 my-auto">
             <div className="">
               <h2 className={`font-bold ${greatFont.className} text-5xl text-center`}>Our Journey</h2>
@@ -35,13 +35,13 @@ export default function About() {
           </div>
         </div>
         {/* ------------------------------------------------------------------------------------ */}
-        <div className="grid grid-cols-1 w-8/12 mx-auto py-10 lg:py-20">
+        <div className="grid grid-cols-1 w-11/12 lg:w-8/12 mx-auto py-10 lg:py-20">
           <div className="">
             <h2 className={`text-5xl ${greatFont.className} text-center`} >
               What's Sweet Salvage?
             </h2>
           </div>
-          <div className="lg:mx-3 pt-5 text-center">
+          <div className="lg:mx-3 pt-5 mb-5 text-center">
             <p>
             Sweet Salvage is more than just a market—it’s a place where nostalgia meets creativity,
              and local craftsmanship shines. We bring together a thoughtfully curated mix of antiques,
@@ -60,13 +60,13 @@ export default function About() {
           </div>
         </div>
         {/* --------------------------------------------------------------------------------------- */}
-        <div className="grid lg:grid-cols-2 grid-cols-1 text-center mx-auto pt-10 lg:pt-20 w-8/12">
+        <div className="grid lg:grid-cols-2 grid-cols-1 text-center mx-auto pt-10 lg:pt-20 w-11/12 lg:w-8/12">
           <div className="pt-10 lg:pt-0 order-2 lg:order-1">
             <img className="w-96  mx-auto" src="/Img/Jennifer.jpg" alt="" />
           </div>
           <div className="col-span-1 my-auto lg:order-2 order-1">
             <div className="">
-              <h2 className={`font-bold ${greatFont.className} text-5xl text-center`}>About Jennifer</h2>
+              <h2 className={`font-bold mb-4 ${greatFont.className} text-5xl text-center`}>About Jennifer</h2>
             </div>
             <div className="lg:pt-5 mx-3 lg:mx-10 ">
               <p>

@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import moment from "moment";
+import { useEffect, useState } from 'react';
 import Image from "next/image";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import moment from 'moment';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import BeforeAfterSlider from './components/SlideShow';
 
 async function fetchEvents() {
   try {
@@ -30,12 +31,13 @@ async function fetchEvents() {
 
 export default function Home() {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch events when the component mounts
     async function loadEvents() {
       const fetchedEvents = await fetchEvents();
       setEvents(fetchedEvents);
+      setLoading(false);
     }
     loadEvents();
   }, []);
@@ -60,8 +62,8 @@ export default function Home() {
   ];
 
   const posts = [
-    { img: "/Img/yard.jpg", alt: "Sweet Salvage" },
-    { img: "/Img/Fuller.jpg", alt: "James Fuller" },
+    { img: "/Img/Performance_1.jpg", alt: "Isaac Baranger" },
+    { img: "/Img/Flower_Image.jpg", alt: "" },
     { img: "/Img/Cramer Boys.png", alt: "Cramer Boys" },
     { img: "/Img/cramer boys setup.png", alt: "Cramer Boys Setup" },
     { img: "/Img/Ghosts.png", alt: "Ghosts" },
@@ -86,46 +88,59 @@ export default function Home() {
 
         {/* ================================================= */}
         {/* Events Section */}
-        <motion.div initial={{ opacity: 0, x:"-20px" }}
-  whileInView={{ opacity: 1, x: "0px" }} transition={{duration:1}} viewport={{ once: true }} className="w-full">
-          <div className=" text-center text-3xl font-semibold font-serif pt-5">
-            <h3 className="">Upcoming Events</h3>
-          </div>
-          <div className="pt-10 lg:w-1/2 lg:mx-auto mx-5">
-            {/* Card Start */}
-            {events.map((event, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8"
-              >
-                <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
-                  {/* Display Month and Date from event.start */}
-                  <h4>{moment(event.start).format("MMM")}</h4>
-                  <h4 className="text-4xl font-semibold">
-                    {moment(event.start).format("D")}
-                  </h4>
+        <motion.div initial={{ opacity: 0, x: "-20px" }}
+      whileInView={{ opacity: 1, x: "0px" }} transition={{ duration: 1 }} viewport={{ once: true }} className="w-full">
+      <div className="text-center text-3xl font-semibold font-serif pt-5">
+        <h3 className="">Upcoming Events</h3>
+      </div>
+      <div className="pt-10 lg:w-1/2 lg:mx-auto mx-5">
+        {/* Card Start */}
+        {loading ? (
+          // Loading Skeleton
+          <div className="animate-pulse">
+            {[...Array(3)].map((_, index) => (
+              <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
+                <div className="col-span-1 text-center text-white py-2 bg-gray-300 rounded-l-xl ">
+                  <div className="h-8 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
+                  <div className="h-12 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
                 </div>
                 <div className="col-span-5 ms-5">
-                  {/* Display title and description */}
-                  <h3 className="font-bold text-2xl">{event.title} @ {moment(event.start).format("hA")}</h3>
-                  {event.description === "No Description" ? null : (
-  <p className="text-gray-600">{event.description}</p>
-)}
+                  <div className="h-6 bg-gray-400 rounded w-3/4 mt-2"></div>
+                  <div className="h-4 bg-gray-400 rounded w-1/2 mt-2"></div>
                 </div>
               </div>
             ))}
-
-            
-            <div className="pt-10 text-center">
-               <Link href="/events">
-              <button className="active:scale-95 duration-75 rounded-lg bg-red-400 text-white px-4 py-2">
-
-                See All
-              </button>
-              </Link>
-            </div>
           </div>
-        </motion.div>
+        ) : (
+          // Events
+          events.map((event, index) => (
+            <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
+              <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
+                {/* Display Month and Date from event.start */}
+                <h4>{moment(event.start).format("MMM")}</h4>
+                <h4 className="text-4xl font-semibold">
+                  {moment(event.start).format("D")}
+                </h4>
+              </div>
+              <div className="col-span-5 ms-5">
+                {/* Display title and description */}
+                <h3 className="font-bold text-2xl">{event.title} @ {moment(event.start).format("ha")}</h3>
+                {event.description === "No Description" ? null : (
+                  <p className="text-gray-600">{event.description}</p>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+        <div className="pt-10 text-center">
+          <Link href="/events">
+            <button className="active:scale-95 duration-75 rounded-lg bg-red-400 text-white px-4 py-2">
+              See All
+            </button>
+          </Link>
+        </div>
+      </div>
+    </motion.div>
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
         <motion.div initial={{ opacity: 0, x:"-20px" }}
@@ -156,7 +171,7 @@ export default function Home() {
       {/* ======================================================================================================== */}
       {/* About Section */}
       <motion.div initial={{ opacity: 0, x:"-20px" }}
-  whileInView={{ opacity: 1, x: "0px" }} transition={{duration:1, delay:.5}} viewport={{ once: true }} className="lg:mt-20">
+  whileInView={{ opacity: 1, x: "0px" }} transition={{duration:1}} viewport={{ once: true }} className="lg:mt-20">
         
       <div className="grid mx-auto mt-20 grid-cols-1 lg:grid-cols-2 w-11/12 lg:w-8/12">
   <div className="col-span-1 order-2 lg:order-1 mx-auto">
@@ -202,20 +217,8 @@ export default function Home() {
   </h3>
 </div>
 
-<div className="grid grid-cols-1 md:grid-cols-3 w-11/12 gap-4 max-w-6xl mx-auto my-8">
-  {posts.map((post, index) => (
-    <div key={index} className="relative">
-      <img 
-        src={post.img} 
-        alt={post.alt} 
-        className="w-full h-[300px] object-cover" // Adjust height as needed
-      />
-      {/* Optional hover effect */}
-      <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <p className="text-white text-lg font-bold">{post.alt}</p>
-      </div>
-    </div>
-  ))}
+<div className=" w-11/12 gap-4 max-w-6xl mx-auto my-8">
+<BeforeAfterSlider posts={posts}/>
 </div>
 
     </>
