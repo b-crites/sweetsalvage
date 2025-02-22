@@ -62,8 +62,8 @@ export default function Home() {
   ];
 
   const posts = [
-    { img: "/Img/Performance_1.jpg", alt: "Isaac Baranger" },
-    { img: "/Img/Flower_Image.jpg", alt: "" },
+    { img: "/Img/Performance_1.jpg", alt: "Isaac Baranger Performance" },
+    { img: "/Img/Flower_Image.jpg", alt: "Flowers in Sweet Market" },
     { img: "/Img/Cramer Boys.png", alt: "Cramer Boys" },
     { img: "/Img/cramer boys setup.png", alt: "Cramer Boys Setup" },
     { img: "/Img/Ghosts.png", alt: "Ghosts" },

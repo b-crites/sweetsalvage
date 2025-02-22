@@ -27,15 +27,9 @@ export default function Market() {
             alt="Sweet Market Logo"
           />
         </div>
-        <div className="pt-10">
-          <h2 className={`ms-10 pb-5 ${greatFont.className} lg:text-left text-center text-6xl`}>
-            Before & Afters
-          </h2>
-          {/* SLIDESHOW */}
-          <BeforeAfterSlider />
-        </div>
+       
         {/* INSIDE THE MARKET */}
-        <div className="">
+        <div className="mt-5">
           <h2 className={`lg:ms-10 pb-10 ${greatFont.className} lg:text-left text-center text-6xl`}>
             Inside the Market
           </h2>
