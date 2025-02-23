@@ -9,8 +9,6 @@ import EventsModal from "../components/EventsModal";
 
 const localizer = momentLocalizer(moment);
 
-
-
 const EventComponent = ({ event }) => {
   const startTime = moment(event.start).format('h:mm A');
   return (
@@ -30,7 +28,6 @@ const Events = () => {
   const [selectedMonths, setSelectedMonths] = useState(""); // State for selected months
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const presentationRef = useRef(null); // Ref for full-screen container
-  const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   
   const handleEventClick = (event) => {
@@ -110,11 +107,7 @@ const Events = () => {
   // Key event listeners for additional functionalities
   useEffect(() => {
     const handleKeyDown = (event) => {
-      // Check for Ctrl + P to show modal
-      if (event.ctrlKey && event.key === "p") {
-        event.preventDefault(); // Prevent the default action
-        setShowModal(true); // Show modal for month selection
-      }
+      event.preventDefault();
 
       // Check for Esc to exit presentation mode
       if (event.key === "Escape") {
@@ -159,54 +152,52 @@ const Events = () => {
 
   if (!isClient) return null; // Ensures server-side rendering works without client-specific code errors
 
-
   return (
     <>
       <div className="mt-10 ms-10 text-center lg:text-left">
         <h2 className="font-semibold font-serif text-5xl">Events</h2>
       </div>
 
-
       <div className="pt-20 lg:w-1/2 gap-4 lg:mx-auto mx-5">
-      {loading ? (
-               // Loading Skeleton
-               <div className="animate-pulse grid grid-cols-1 lg:grid-cols-2">
-                 {[...Array(6)].map((_, index) => (
-                   <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
-                     <div className="col-span-1 text-center text-white py-2 bg-gray-300 rounded-l-xl ">
-                       <div className="h-8 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
-                       <div className="h-12 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
-                     </div>
-                     <div className="col-span-5 ms-5">
-                       <div className="h-6 bg-gray-400 rounded w-3/4 mt-2"></div>
-                       <div className="h-4 bg-gray-400 rounded w-1/2 mt-2"></div>
-                     </div>
-                   </div>
-                 ))}
-               </div>
-             ) : (
-              <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
-               {/* Events */}
-               {events.slice(0,6).map((event, index) => (
-                 <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
-                   <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
-                     {/* Display Month and Date from event.start */}
-                     <h4>{moment(event.start).format("MMM")}</h4>
-                     <h4 className="text-4xl font-semibold">
-                       {moment(event.start).format("D")}
-                     </h4>
-                   </div>
-                   <div className="col-span-5 ms-5">
-                     {/* Display title and description */}
-                     <h3 className="font-bold text-2xl">{event.title} @ {moment(event.start).format("ha")}</h3>
-                     {event.description === "No Description" ? null : (
-                       <p className="text-gray-600">{event.description}</p>
-                     )}
-                   </div>
-                 </div>
-               ))}
-             </div>
-             )}
+        {loading ? (
+          // Loading Skeleton
+          <div className="animate-pulse grid grid-cols-1 lg:grid-cols-2">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
+                <div className="col-span-1 text-center text-white py-2 bg-gray-300 rounded-l-xl ">
+                  <div className="h-8 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
+                  <div className="h-12 bg-gray-400 rounded w-3/4 mx-auto mt-2"></div>
+                </div>
+                <div className="col-span-5 ms-5">
+                  <div className="h-6 bg-gray-400 rounded w-3/4 mt-2"></div>
+                  <div className="h-4 bg-gray-400 rounded w-1/2 mt-2"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
+            {/* Events */}
+            {events.slice(0, 6).map((event, index) => (
+              <div key={index} className="grid grid-cols-6 shadow-xl bg-gray-50 rounded-xl mb-8">
+                <div className="col-span-1 text-center text-white py-2 bg-red-500 rounded-l-xl ">
+                  {/* Display Month and Date from event.start */}
+                  <h4>{moment(event.start).format("MMM")}</h4>
+                  <h4 className="text-4xl font-semibold">
+                    {moment(event.start).format("D")}
+                  </h4>
+                </div>
+                <div className="col-span-5 ms-5">
+                  {/* Display title and description */}
+                  <h3 className="font-bold text-2xl">{event.title} @ {moment(event.start).format("ha")}</h3>
+                  {event.description === "No Description" ? null : (
+                    <p className="text-gray-600">{event.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div ref={presentationRef} style={{ textAlign: "center" }}>
@@ -233,27 +224,28 @@ const Events = () => {
         >
           {isPresentationMode && (
             <>
-              <h2 style={{ fontSize: "2rem", position:'absolute', top:'10%' }}>
+              <h2 style={{ fontSize: "2rem", position: 'absolute', top: '10%' }}>
                 {moment(currentDate).format("MMMM YYYY")}
               </h2>
               <div
-  style={{
-    display: isPresentationMode ? "flex" : "none",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row", // Changed from column to row
-    position: "absolute",
-    bottom: 10,
-    width: "100%",
-    zIndex: 1001,
-  }}
->
-  <p className="font-semibold italic text-3xl mr-4">Powered by</p>
-  <img src="/Img/VaLogo.png" alt="Logo" className="w-44" />
-</div>
-
+                style={{
+                  display: isPresentationMode ? "flex" : "none",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row", // Changed from column to row
+                  position: "absolute",
+                  bottom: 10,
+                  width: "100%",
+                  zIndex: 1001,
+                }}
+              >
+                <p className="font-semibold italic text-3xl mr-4">Powered by</p>
+                <img src="/Img/VaLogo.png" alt="Visionary Advance Logo" className="w-44" />
+              </div>
             </>
           )}
+          
+          
           <Calendar
             localizer={localizer}
             date={currentDate}
@@ -263,7 +255,7 @@ const Events = () => {
             events={events}
             style={{
               position: isPresentationMode ? "absolute" : "relative", // Position the calendar absolutely in presentation mode
-              top: isPresentationMode ? "15%" : "initial", // Adjust the calendar's vertical position in presentation mode
+              top: isPresentationMode ? "16%" : "initial", // Adjust the calendar's vertical position in presentation mode
               height: isPresentationMode ? "65vh" : "500px",
               width: isPresentationMode ? "85vw" : "90%",
               zIndex: isPresentationMode ? 999 : "initial", // Ensure the calendar stays on top in presentation mode
@@ -275,6 +267,14 @@ const Events = () => {
             }}
           />
         </div>
+        {!isPresentationMode && (
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-white hover:bg-gray-100 text-black font-bold py-2 px-4 rounded"
+            >
+              Start
+            </button>
+          )}
         <EventsModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

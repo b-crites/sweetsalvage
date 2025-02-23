@@ -7,6 +7,8 @@ import moment from 'moment';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import BeforeAfterSlider from './components/SlideShow';
+const greatFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
+import { Great_Vibes } from 'next/font/google';
 
 async function fetchEvents() {
   try {
@@ -28,6 +30,12 @@ async function fetchEvents() {
     return []; // Return empty array on error
   }
 }
+
+const inside =[
+  {title:"Reading Nook" , img:"/Img/Reading_Nook.jpg", desc:"Escape into our cozy reading nook, where comfort meets tranquility. Whether you're lost in a good book or simply enjoying a peaceful moment, our nook offers the perfect atmosphere for relaxation. Come unwind, sip your favorite drink, and let the world fade away as you immerse yourself in your next great read."},
+  {title:"Market" , img:"/Img/Market Image.jpg", desc:"Step into our market, where history meets charm. Discover a collection of unique antiques, vintage treasures, and one-of-a-kind pieces. Whether you're looking for timeless decor or a rare find, our market offers a nostalgic experience that brings the past to life."},
+  {title:"Lani Moku Chill Bar" , img:"/Img/Lani_Moku_Bar.jpg", desc:"Relax and unwind at our Lani Moku Chill Bar, where great drinks and good company meet. Whether you're enjoying a craft cocktail or a cold beer, our welcoming atmosphere makes it the perfect spot to relax with friends or make new ones. Cheers to unforgettable moments!"}
+]
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -64,13 +72,13 @@ export default function Home() {
   const posts = [
     { img: "/Img/Performance_1.jpg", alt: "Isaac Baranger Performance" },
     { img: "/Img/Flower_Image.jpg", alt: "Flowers in Sweet Market" },
-    { img: "/Img/Cramer Boys.png", alt: "Cramer Boys" },
-    { img: "/Img/cramer boys setup.png", alt: "Cramer Boys Setup" },
-    { img: "/Img/Ghosts.png", alt: "Ghosts" },
-    { img: "/Img/In Line.png", alt: "People In Line" },
-    { img: "/Img/Northern Lights.png", alt: "Northern Lights Scenery" },
-    { img: "/Img/Store.png", alt: "Store" },
-    { img: "/Img/View.png", alt: "View of Yard" },
+    { img: "/Img/Picture_1.JPG", alt: "Truck with Flowers" },
+    { img: "/Img/Picture_2.JPG", alt: "Flower Shop Setup" },
+    { img: "/Img/Picture_3.JPG", alt: "Flowers and Cart" },
+    { img: "/Img/Picture_4.JPG", alt: "People enjoying outside sitting area" },
+    { img: "/Img/Picture_5.JPG", alt: "Inside shop items" },
+    { img: "/Img/Picture_6.JPG", alt: "Table with old antiques" },
+    { img: "/Img/Picture_7.JPG", alt: "Old truck bed with product bags" },
   ];
 
   return (
@@ -78,9 +86,9 @@ export default function Home() {
       <div className="">
         {/* LANDING IMG */}
         <div className="relative h-96 w-full">
-  <Image className="h-full w-full object-cover" width={600} height={650} loading="lazy"  src="/Img/Barn.jpg" alt="" />
-  <div className="absolute inset-0 bg-black bg-opacity-50 flex text-center justify-center items-center">
-    <h1 className="text-6xl font-semibold font-serif text-white">SWEET SALVAGE</h1>
+  <Image className="h-full w-full object-cover" width={800} height={800} loading="lazy"  src="/Img/Sweet_Market.jpg" alt="Sweet Market" />
+  <div className="absolute inset-0 bg-white bg-opacity-40 flex text-center justify-center items-center">
+    <Image src="/Img/Sweet_Market_Logo.png" width={500} height={500} alt='Sweet Salvage logo' className="text-6xl font-semibold font-serif text-white" />
   </div>
 </div>
 
@@ -141,6 +149,30 @@ export default function Home() {
         </div>
       </div>
     </motion.div>
+        <motion.div initial={{ opacity: 0, x: "-20px" }}
+      whileInView={{ opacity: 1, x: "0px" }} transition={{ duration: 1 }} viewport={{ once: true }} className="lg:mt-20">
+    <h2 className={`lg:ms-10 pb-10 ${greatFont.className} lg:text-left text-center text-6xl`}>
+            Inside the Market
+          </h2>
+          <div className="grid lg:grid-cols-3 lg:w-10/12 mx-auto mb-16 overflow-hidden">
+  {inside.map((item, index) => (
+    <div key={index} className="col-span-1 my-5 grid grid-cols-1 text-center">
+      <img
+        className="mx-auto h-72 w-72 bg-gray-400 object-cover"
+        src={item.img}
+        alt="In time"
+      />
+      <div className="">
+        <h2 className="font-bold pt-5 text-2xl pb-1">{item.title}</h2>
+        <p className="mx-2">
+          {item.desc}
+        </p>
+      </div>
+    </div>
+  ))}
+  </div>
+  </motion.div>
+
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
         <motion.div initial={{ opacity: 0, x:"-20px" }}

@@ -1,4 +1,3 @@
-import BeforeAfterSlider from "../components/SlideShow";
 import { Great_Vibes } from 'next/font/google';
 const greatFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 
@@ -13,17 +12,17 @@ export default function Market() {
   return (
     <>
       <div className="bgBeige">
-        <div className=" heroH overflow-hidden relative">
+        <div className="heroH overflow-hidden relative">
           <img
             className="w-full xl:-translate-y-80 "
-            src="/Img/Sweet Market.jpg"
+            src="/Img/Sweet_Market.jpg"
             alt="Sweet Market"
           />
           <div className="h-full w-full bg-white opacity-65 absolute top-0 left-0"></div>
 
           <img
             className="absolute w-10/12 lg:w-4/12 m-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            src="/Img/Sweet Market Logo.png"
+            src="/Img/Sweet_Market_Logo.png"
             alt="Sweet Market Logo"
           />
         </div>
