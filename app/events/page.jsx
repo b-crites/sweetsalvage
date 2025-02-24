@@ -38,9 +38,9 @@ const Events = () => {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        setLoading(true); // Ensure loading state is set before fetching
+        setLoading(true);
   
-        const response = await fetch("http://127.0.0.1:5000/events");
+        const response = await fetch("http://127.0.0.1:8001/events");
   
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -49,7 +49,8 @@ const Events = () => {
         const data = await response.json();
         console.log("Fetched data:", data);
   
-        const formattedEvents = data.map((event) => ({
+        // clearly use data.events instead of just data
+        const formattedEvents = data.events.map((event) => ({
           start: new Date(event.start),
           end: new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1)),
           title: event.summary,
@@ -63,12 +64,13 @@ const Events = () => {
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
-        setLoading(false); // Ensure the loading state is set to false
+        setLoading(false);
       }
     }
   
     fetchEvents();
   }, []);
+  
   
 
   //Ensures client-side rendering for components requiring DOM manipulation
