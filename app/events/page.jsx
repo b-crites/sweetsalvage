@@ -4,7 +4,6 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { useEffect, useState, useRef } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import MonthSelectionModal from "../components/MonthSelectionModal";
 import EventsModal from "../components/EventsModal";
 
 const localizer = momentLocalizer(moment);
@@ -25,7 +24,7 @@ const Events = () => {
   const [events, setEvents] = useState([]); // set up events correctly for updates
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [selectedMonths, setSelectedMonths] = useState(""); // State for selected months
+  const [selectedMonths, setSelectedMonths] = useState(3); // Default to 3 months
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const presentationRef = useRef(null); // Ref for full-screen container
   const [loading, setLoading] = useState(true);
@@ -127,7 +126,6 @@ const Events = () => {
   };
 
   const startPresentation = () => {
-    setShowModal(false);
     setIsPresentationMode(true);
     setCurrentDate(new Date()); // Reset to the current date for the presentation
 
@@ -201,12 +199,6 @@ const Events = () => {
       </div>
 
       <div ref={presentationRef} style={{ textAlign: "center" }}>
-        <MonthSelectionModal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          onStart={startPresentation}
-          setSelectedMonths={setSelectedMonths}
-        />
         <div
           style={{
             position: isPresentationMode ? "fixed" : "relative",
@@ -245,7 +237,6 @@ const Events = () => {
             </>
           )}
           
-          
           <Calendar
             localizer={localizer}
             date={currentDate}
@@ -255,7 +246,7 @@ const Events = () => {
             events={events}
             style={{
               position: isPresentationMode ? "absolute" : "relative", // Position the calendar absolutely in presentation mode
-              top: isPresentationMode ? "16%" : "initial", // Adjust the calendar's vertical position in presentation mode
+              top: isPresentationMode ? "15%" : "initial", // Adjust the calendar's vertical position in presentation mode
               height: isPresentationMode ? "65vh" : "500px",
               width: isPresentationMode ? "85vw" : "90%",
               zIndex: isPresentationMode ? 999 : "initial", // Ensure the calendar stays on top in presentation mode
@@ -266,15 +257,15 @@ const Events = () => {
               event: EventComponent,
             }}
           />
-        </div>
-        {!isPresentationMode && (
+          {!isPresentationMode && (
             <button
-              onClick={() => setShowModal(true)}
+              onClick={startPresentation}
               className="bg-white hover:bg-gray-100 text-black font-bold py-2 px-4 rounded"
             >
               Start
             </button>
           )}
+        </div>
         <EventsModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

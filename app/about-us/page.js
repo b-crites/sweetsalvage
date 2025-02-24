@@ -30,8 +30,8 @@ export default function About() {
               </p>
             </div>
           </div>
-          <div className="pt-10 lg:pt-0">
-            <img className="w-96 h-72 mx-auto" src="/Img/View.png" alt="" />
+          <div className="pt-10  lg:pt-0">
+            <img className=" object-fill w-10/12  mx-auto" src="/Img/Outside.jpg" alt="Outside eating area" />
           </div>
         </div>
         {/* ------------------------------------------------------------------------------------ */}
