@@ -12,11 +12,11 @@ import { Great_Vibes } from 'next/font/google';
 
 async function fetchEvents() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/events", { cache: "no-store" });
+    const response = await fetch("http://127.0.0.1:8001/events", { cache: "no-store" });
     const data = await response.json();
 
     // Transform and sort events by start date
-    const formattedEvents = data.map((event) => ({ 
+    const formattedEvents = data.events.map((event) => ({ 
       start: new Date(event.start),
       title: event.summary,
       description: event.description,
