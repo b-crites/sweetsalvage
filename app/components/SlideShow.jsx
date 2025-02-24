@@ -30,13 +30,13 @@ function BeforeAfterSlider({ posts }) {
       {/* Navigation Buttons */}
       <button
         onClick={handlePrevious}
-        className="absolute left-28 bottom-7 lg:bottom-0 lg:top-0 lg:left-4 text-2xl text-black"
+        className="absolute left-28 -bottom-10 lg:bottom-0 lg:top-0 lg:left-4 text-2xl text-black"
       >
         &lt;
       </button>
       <button
         onClick={handleNext}
-        className="absolute right-28 bottom-7 lg:bottom-0 lg:top-0 lg:right-4 text-2xl text-black"
+        className="absolute right-28 -bottom-10 lg:bottom-0 lg:top-0 lg:right-4 text-2xl text-black"
       >
         &gt;
       </button>

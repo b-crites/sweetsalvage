@@ -44,9 +44,7 @@ function Header() {
               <Link href="/#food-trucks"> <button onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm hover:text-white hover:bg-gray-700 w-full text-left">Menus</button></Link>
             </div>
           </li>
-          <li>
-            <Link href="/sweet-market"><button>Sweet Market</button></Link>
-          </li>
+         
           <li>
             <Link href="/about-us"><button>About</button></Link>
           </li>
@@ -84,9 +82,6 @@ function Header() {
         <ul className="space-y-8 text-center">
           <li onClick={handleMenuToggle}>
             <Link href="/about-us"><button>About</button></Link>
-          </li>
-          <li onClick={handleMenuToggle}>
-            <Link href="/sweet-market"><button>Sweet Market</button></Link>
           </li>
           <li onClick={handleMenuToggle}>
             <Link href="/bands"><button>Bands</button></Link>

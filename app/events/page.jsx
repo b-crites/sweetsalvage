@@ -4,7 +4,6 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { useEffect, useState, useRef } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import MonthSelectionModal from "../components/MonthSelectionModal";
 import EventsModal from "../components/EventsModal";
 
 const localizer = momentLocalizer(moment);
@@ -25,7 +24,7 @@ const Events = () => {
   const [events, setEvents] = useState([]); // set up events correctly for updates
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [selectedMonths, setSelectedMonths] = useState(""); // State for selected months
+  const [selectedMonths, setSelectedMonths] = useState(3); // Default to 3 months
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const presentationRef = useRef(null); // Ref for full-screen container
   const [loading, setLoading] = useState(true);
@@ -39,9 +38,9 @@ const Events = () => {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        setLoading(true); // Ensure loading state is set before fetching
+        setLoading(true);
   
-        const response = await fetch("http://127.0.0.1:5000/events");
+        const response = await fetch("http://127.0.0.1:8001/events");
   
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -50,7 +49,8 @@ const Events = () => {
         const data = await response.json();
         console.log("Fetched data:", data);
   
-        const formattedEvents = data.map((event) => ({
+        // clearly use data.events instead of just data
+        const formattedEvents = data.events.map((event) => ({
           start: new Date(event.start),
           end: new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1)),
           title: event.summary,
@@ -64,12 +64,13 @@ const Events = () => {
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
-        setLoading(false); // Ensure the loading state is set to false
+        setLoading(false);
       }
     }
   
     fetchEvents();
   }, []);
+  
   
 
   //Ensures client-side rendering for components requiring DOM manipulation
@@ -127,7 +128,6 @@ const Events = () => {
   };
 
   const startPresentation = () => {
-    setShowModal(false);
     setIsPresentationMode(true);
     setCurrentDate(new Date()); // Reset to the current date for the presentation
 
@@ -201,12 +201,6 @@ const Events = () => {
       </div>
 
       <div ref={presentationRef} style={{ textAlign: "center" }}>
-        <MonthSelectionModal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          onStart={startPresentation}
-          setSelectedMonths={setSelectedMonths}
-        />
         <div
           style={{
             position: isPresentationMode ? "fixed" : "relative",
@@ -245,7 +239,6 @@ const Events = () => {
             </>
           )}
           
-          
           <Calendar
             localizer={localizer}
             date={currentDate}
@@ -255,7 +248,7 @@ const Events = () => {
             events={events}
             style={{
               position: isPresentationMode ? "absolute" : "relative", // Position the calendar absolutely in presentation mode
-              top: isPresentationMode ? "16%" : "initial", // Adjust the calendar's vertical position in presentation mode
+              top: isPresentationMode ? "15%" : "initial", // Adjust the calendar's vertical position in presentation mode
               height: isPresentationMode ? "65vh" : "500px",
               width: isPresentationMode ? "85vw" : "90%",
               zIndex: isPresentationMode ? 999 : "initial", // Ensure the calendar stays on top in presentation mode
@@ -266,15 +259,15 @@ const Events = () => {
               event: EventComponent,
             }}
           />
-        </div>
-        {!isPresentationMode && (
+          {!isPresentationMode && (
             <button
-              onClick={() => setShowModal(true)}
+              onClick={startPresentation}
               className="bg-white hover:bg-gray-100 text-black font-bold py-2 px-4 rounded"
             >
               Start
             </button>
           )}
+        </div>
         <EventsModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

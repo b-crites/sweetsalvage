@@ -10,9 +10,9 @@ export default function Contact() {
             <h2 className="font-bold text-2xl mt-5">Hours:</h2>
             <div className="grid grid-cols-2 mt-5">
             {/* HOURS */}
-            <div className="col-span-1">
-                <p className="font-bold text-2xl">Sweet Market:</p>
-            <ul className=" me-auto">
+            <div className="col-span-2 pb-5">
+                <p className="font-bold text-2xl ">Sweet Market & Pavillion:</p>
+            <ul className=" me-auto  ">
               <li>Sunday: 10 AM–6 PM</li>
               <li>Monday: Closed</li>
               <li>Tuesday: 11 AM–8 PM</li>
@@ -23,19 +23,7 @@ export default function Contact() {
             
             </ul>
             </div>
-            <div className="col-span-1">
-                <p className="font-bold text-2xl">Pavillion:</p>
-            <ul className=" me-auto">
-              <li>Sunday: 10 AM–6 PM</li>
-              <li>Monday: Closed</li>
-              <li>Tuesday: 11 AM–8 PM</li>
-              <li>Wednesday: 11 AM–8 PM</li>
-              <li>Thursday: 11 AM–9 PM</li>
-              <li>Friday: 11 AM–9 PM</li>
-              <li>Saturday: 11 AM–9 PM</li>
             
-            </ul>
-            </div>
             <div className="col-span-2">
                 <p className="font-bold text-2xl">Location:</p>
             {/* LOCATION */}
