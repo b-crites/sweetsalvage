@@ -1,0 +1,9 @@
+config/token.json
+config/credentials.json
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+config/token.json  # Prevents leaking token in Docker images
