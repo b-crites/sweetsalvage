@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sweetmarketonmain.com
+
+# Sitemaps
+Sitemap: https://sweetmarketonmain.com/sitemap.xml
