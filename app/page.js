@@ -56,7 +56,7 @@ export default function Home() {
     {
       img: "/Img/Thai_Fusion_Logo.png",
       name: "Thai Fusion 2 Go",
-      url: "https://www.facebook.com/CalleSteeloTaqueria/",
+      url: "https://www.thaifusioneugene.com/",
     },
     {
       img: "/Img/Kento_Logo.png",
