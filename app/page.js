@@ -54,9 +54,15 @@ export default function Home() {
   const food = [
     { img: "/Img/Tailg8s_Logo.png", name: "Tailg8's", url: "https://tailg8s.com" },
     {
+<<<<<<< HEAD
       img: "/Img/Calle_Steelo_Logo.png",
       name: "Calle Steelo Taqueria",
       url: "https://www.facebook.com/CalleSteeloTaqueria/",
+=======
+      img: "/Img/Thai_Fusion_Logo.png",
+      name: "Thai Fusion 2 Go",
+      url: "https://www.thaifusioneugene.com/",
+>>>>>>> 13fc4cdb6a0970e29fc4c672c075c6ea7d23b0e4
     },
     {
       img: "/Img/Kento_Logo.png",
@@ -85,7 +91,11 @@ export default function Home() {
   return (
     <>
     <div >
+<<<<<<< HEAD
     <AnniversaryModal />
+=======
+   
+>>>>>>> 13fc4cdb6a0970e29fc4c672c075c6ea7d23b0e4
 
     </div>
     <div className="bgBeige">
@@ -188,11 +198,19 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:w-1/2 mx-auto mt-10">
             {food.map((item, index) => (
+<<<<<<< HEAD
               <div key={index} className="relative mx-auto w-72 mb-20">
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
                   <img
                     src={item.img}
                     className="w-full h-auto"
+=======
+              <div key={index} className="relative mx-auto w-72 mb-20 flex items-center">
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={item.img}
+                    className="w-full  h-auto"
+>>>>>>> 13fc4cdb6a0970e29fc4c672c075c6ea7d23b0e4
                     alt={item.name}
                   />
 
@@ -214,8 +232,13 @@ export default function Home() {
       <div className="grid mx-auto mt-20 grid-cols-1 lg:grid-cols-2 w-11/12 lg:w-8/12">
   <div className="col-span-1 order-2 lg:order-1 mx-auto">
     <img
+<<<<<<< HEAD
       src="/Img/Sweet Salvage Store.png"
       className="mx-auto mt-5 mb-5  bg-black"
+=======
+      src="/Img/About_Img.jpg"
+      className="mx-auto object-contain lg:h-[425px]  mt-5 mb-5  "
+>>>>>>> 13fc4cdb6a0970e29fc4c672c075c6ea7d23b0e4
       alt="Picture"
     />
   </div>
