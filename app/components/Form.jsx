@@ -49,63 +49,63 @@ export default function Form() {
   
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // Collect common data
-    const formData = {
-      selectedValue, // Add selectedValue to capture form type
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      selectedDate,
-      typeOfMusic,
-      eventType,
-      message,  // Add any additional form data
-      drinks,
-      genreOfMusic,
-      setLength,
-      stagename,
-      selectedMembers,
-      power,
-    };
+  e.preventDefault();
 
-    // Add data based on selected form
-    if (selectedValue === "band") {
-      formData.typeOfMusic = typeOfMusic;
-      formData.selectedMembers = selectedMembers;
-      formData.setLength = setLength;
-      formData.power = power;
-      formData.performanceDate = selectedDate;
-    } else if (selectedValue === "wedding") {
-      formData.eventType = eventType;
-      formData.drinks = drinks;
-      formData.weddingDate = selectedDate;
-    }
-    
-    //Log the form data with active fields
-    console.log("Sending form data:", formData);  // consolidated log
-
-    //send form data to the backend
-    try {
-      const response = await fetch('http://localhost:5000/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-
-
- 
-    setShowBanner(true);
-    setTimeout(() => {
-      setShowBanner(false);
-    }, 5000); 
+  // Collect common data
+  const formData = {
+    selectedValue, // Add selectedValue to capture form type
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    selectedDate,
+    typeOfMusic,
+    eventType,
+    message,  // Add any additional form data
+    drinks,
+    genreOfMusic,
+    setLength,
+    stagename,
+    selectedMembers,
+    power,
   };
+
+  // Add data based on selected form
+  if (selectedValue === "band") {
+    formData.typeOfMusic = typeOfMusic;
+    formData.selectedMembers = selectedMembers;
+    formData.setLength = setLength;
+    formData.power = power;
+    formData.performanceDate = selectedDate;
+  } else if (selectedValue === "wedding") {
+    formData.eventType = eventType;
+    formData.drinks = drinks;
+    formData.weddingDate = selectedDate;
+  }
+  
+  //Log the form data with active fields
+  console.log("Sending form data:", formData);
+
+  //send form data to the backend
+  try {
+    const response = await fetch('/api/submit-form', {  // ← CHANGED THIS LINE
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+    const result = await response.json();
+    console.log(result);
+    
+    if (result.success) {
+      setShowBanner(true);
+      setTimeout(() => {
+        setShowBanner(false);
+      }, 5000);
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
+};
   
 
   const closeBanner = () => {
