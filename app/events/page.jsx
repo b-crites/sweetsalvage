@@ -40,8 +40,8 @@ const Events = () => {
       try {
         setLoading(true);
   
-        const response = await fetch("https://sweetmarketonmain.com/api/events");
-
+        
+        const response = await fetch("/api/events");
   
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -124,21 +124,6 @@ const Events = () => {
     };
   }, [isPresentationMode]);
 
-<<<<<<< HEAD
-  useEffect(() => {
-      if (isPresentationMode) {
-          const interval = setInterval(() => {
-              window.dispatchEvent(new Event('mousemove'));
-              console.log("Simulated mouse movement to keep TV active");
-          }, 1800000); // 30 minutes = 1,800,000 milliseconds
-
-          return () => clearInterval(interval); // Cleanup on unmount
-      }
-  }, [isPresentationMode]);
-
-
-=======
->>>>>>> 13fc4cdb6a0970e29fc4c672c075c6ea7d23b0e4
   const handleNavigate = (date) => {
     setCurrentDate(date);
   };
