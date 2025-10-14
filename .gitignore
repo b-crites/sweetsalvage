@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Google OAuth credentials - NEVER commit these!
+config/credentials.json
+config/token.json
+refresh-token.js
+refresh-token-web.js
+refresh-token-oob.js
+check-token.js
