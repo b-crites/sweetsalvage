@@ -70,21 +70,21 @@ export default function Home() {
   }, []);
 
   const food = [
-    { img: "/Img/Tailg8s_Logo.png", name: "Tailg8's", url: "https://tailg8s.com" },
+    { img: "/Img/Dope_Tacos_Logo.jpg", name: "Dope Tacos", url: "https://thedopetacos.com/menu" },
     {
-      img: "/Img/Thai_Fusion_Logo.png",
-      name: "Thai Fusion 2 Go",
-      url: "https://www.thaifusioneugene.com/",
+      img: "/Img/Rattle_Snake.jpg",
+      name: "Rattlesnake BBQ",
+      url: "https://www.facebook.com/p/Rattlesnake-BBQ-Food-Truck-Catering-100063593709216/",
     },
     {
-      img: "/Img/Kento_Logo.png",
-      name: "Kento",
-      url: "https://kentosfoodtruck.com/",
+      img: "/Img/Steam_Station.jpg",
+      name: "Steam Station",
+      url: "https://order.toasttab.com/online/spice-n-steam-truck-1-165-w-11th-ave",
     },
     {
-      img: "/Img/Once_Famous_Logo.png",
-      name: "Once Famous Grill",
-      url: "https://www.oncefamousgrill.com/",
+      img: "/Img/Smokin_BBQ.jpg",
+      name: "West Coast Smokin' BBQ",
+      url: "https://www.facebook.com/people/West-Coast-Smokin/61573772871018/",
     },
   ];
 
