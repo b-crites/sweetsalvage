@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
 
 export default function ChristmasFairModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -237,6 +238,16 @@ export default function ChristmasFairModal() {
                           {loading ? 'Submitting...' : 'RSVP Now'}
                         </button>
                       </form>
+
+                      {/* Vendor Link */}
+                      <div className="mt-4 text-center">
+                        <Link
+                          href="/vendor-request"
+                          className="text-sm text-gray-600 hover:text-gray-800 underline"
+                        >
+                          Request to be a Vendor
+                        </Link>
+                      </div>
                     </>
                   ) : (
                     <div className="text-center">
