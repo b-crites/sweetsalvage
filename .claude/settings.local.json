@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node refresh-token.js)"
+      "Bash(node refresh-token.js)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

@@ -10,6 +10,7 @@ import BeforeAfterSlider from './components/SlideShow';
 const greatFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 import { Great_Vibes } from 'next/font/google';
 import AnniversaryModal from './components/Anniversary';
+import ChristmasFairModal from './components/ChristmasFairModal';
 
 async function fetchEvents() {
   try {
@@ -77,9 +78,9 @@ export default function Home() {
       url: "https://www.facebook.com/p/Rattlesnake-BBQ-Food-Truck-Catering-100063593709216/",
     },
     {
-      img: "/Img/Steam_Station.jpg",
-      name: "Steam Station",
-      url: "https://order.toasttab.com/online/spice-n-steam-truck-1-165-w-11th-ave",
+      img: "/Img/Flame_Crave.webp",
+      name: "Flame Crave",
+      url: "https://flamecrave.square.site/",
     },
     {
       img: "/Img/Smokin_BBQ.jpg",
@@ -102,10 +103,7 @@ export default function Home() {
 
   return (
     <>
-    <div >
-   
-
-    </div>
+    <ChristmasFairModal />
     <div className="bgBeige">
       <div className="">
         {/* LANDING IMG */}
