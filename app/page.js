@@ -71,6 +71,11 @@ export default function Home() {
   }, []);
 
   const food = [
+    {
+      img: "/Img/Smokin_BBQ.jpg",
+      name: "West Coast Smokin' BBQ",
+      url: "https://www.facebook.com/people/West-Coast-Smokin/61573772871018/",
+    },
     { img: "/Img/Dope_Tacos_Logo.jpg", name: "Dope Tacos", url: "https://thedopetacos.com/menu" },
     {
       img: "/Img/Rattle_Snake.jpg",
@@ -81,11 +86,6 @@ export default function Home() {
       img: "/Img/Flame_Crave.webp",
       name: "Flame Crave",
       url: "https://flamecrave.square.site/",
-    },
-    {
-      img: "/Img/Smokin_BBQ.jpg",
-      name: "West Coast Smokin' BBQ",
-      url: "https://www.facebook.com/people/West-Coast-Smokin/61573772871018/",
     },
   ];
 
