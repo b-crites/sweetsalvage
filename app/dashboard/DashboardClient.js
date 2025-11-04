@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function DashboardClient({ user, emailList, vendorRequests, stats }) {
   const [activeTab, setActiveTab] = useState('overview')
@@ -101,31 +102,33 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600">{user.email}</span>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md"
-            >
-              Logout
-            </button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Dashboard</h1>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <span className="text-xs sm:text-sm text-gray-600 truncate max-w-[150px] sm:max-w-none">{user.email}</span>
+              <button
+                onClick={handleLogout}
+                className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md whitespace-nowrap"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+        <div className="border-b border-gray-200 overflow-x-auto">
+          <nav className="-mb-px flex space-x-4 sm:space-x-8 min-w-max sm:min-w-0">
             <button
               onClick={() => setActiveTab('overview')}
               className={`${
                 activeTab === 'overview'
                   ? 'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
             >
               Overview
             </button>
@@ -135,7 +138,7 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 activeTab === 'email-list'
                   ? 'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
             >
               Email List ({emailList.length})
             </button>
@@ -145,7 +148,7 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 activeTab === 'vendor-requests'
                   ? 'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
             >
               Vendor Requests ({vendorRequests.length})
             </button>
@@ -155,16 +158,24 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 activeTab === 'settings'
                   ? 'border-indigo-500 text-indigo-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
             >
               Settings
             </button>
           </nav>
         </div>
 
-        {/* Overview Tab */}
-        {activeTab === 'overview' && (
-          <div className="mt-6">
+        <AnimatePresence mode="wait">
+          {/* Overview Tab */}
+          {activeTab === 'overview' && (
+            <motion.div
+              key="overview"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6"
+            >
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
               <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
@@ -254,12 +265,19 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 </div>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* Email List Tab */}
-        {activeTab === 'email-list' && (
-          <div className="mt-6">
+          {/* Email List Tab */}
+          {activeTab === 'email-list' && (
+            <motion.div
+              key="email-list"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6"
+            >
             <div className="bg-white shadow rounded-lg">
               <div className="px-4 py-5 sm:p-6">
                 <div className="flex justify-between items-center mb-4">
@@ -317,12 +335,19 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 </div>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* Vendor Requests Tab */}
-        {activeTab === 'vendor-requests' && (
-          <div className="mt-6 mb-8">
+          {/* Vendor Requests Tab */}
+          {activeTab === 'vendor-requests' && (
+            <motion.div
+              key="vendor-requests"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6 mb-8"
+            >
             <div className="bg-white shadow rounded-lg">
               <div className="px-4 py-5 sm:p-6">
                 <div className="flex justify-between items-center mb-4">
@@ -398,12 +423,19 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 </div>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* Settings Tab */}
-        {activeTab === 'settings' && (
-          <div className="mt-6 mb-8">
+          {/* Settings Tab */}
+          {activeTab === 'settings' && (
+            <motion.div
+              key="settings"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6 mb-8"
+            >
             <div className="bg-white shadow rounded-lg">
               <div className="px-4 py-5 sm:p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-6">Account Settings</h3>
@@ -474,8 +506,9 @@ export default function DashboardClient({ user, emailList, vendorRequests, stats
                 </div>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )
