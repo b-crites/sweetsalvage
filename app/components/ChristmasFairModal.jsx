@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { supabase } from '@/lib/supabase';
+import { submitFormEntry } from '@/lib/formSubmissions';
 import Link from 'next/link';
 
 export default function ChristmasFairModal() {
@@ -36,28 +36,27 @@ export default function ChristmasFairModal() {
     setError(null);
 
     try {
-      // Insert the email into Supabase using the email_list table
-      const { data, error: supabaseError } = await supabase
-        .from('email_list')
-        .insert([
-          {
-            name: name.trim(),
-            email: email.trim().toLowerCase()
-          }
-        ])
-        .select();
+      // Submit using the new form submissions helper
+      const result = await submitFormEntry({
+        clientName: 'Sweet Salvage',
+        categoryName: 'email_list',
+        email: email,
+        data: {
+          name: name.trim()
+        }
+      });
 
-      if (supabaseError) {
+      if (!result.success) {
         // Handle duplicate email error
-        if (supabaseError.code === '23505') {
+        if (result.code === '23505') {
           setError('This email is already registered for the Christmas Fair!');
         } else {
-          setError(supabaseError.message || 'Failed to submit RSVP. Please try again.');
+          setError(result.error || 'Failed to submit RSVP. Please try again.');
         }
         return;
       }
 
-      console.log('RSVP submitted successfully:', data);
+      console.log('RSVP submitted successfully:', result.data);
 
       // Store RSVP status in localStorage
       localStorage.setItem('christmas_fair_rsvp', 'true');

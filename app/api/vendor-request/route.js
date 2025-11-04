@@ -1,12 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { createClient } from '@supabase/supabase-js';
+import { submitFormEntry } from '@/lib/formSubmissions';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export async function POST(request) {
   try {
@@ -20,32 +16,31 @@ export async function POST(request) {
       );
     }
 
-    // Insert vendor data into Supabase
-    const { data: vendorData, error: supabaseError } = await supabase
-      .from('vendor_requests')
-      .insert([
-        {
-          name: formData.name.trim(),
-          phone: formData.phone.trim(),
-          business_name: formData.businessName.trim(),
-          email: formData.email.trim().toLowerCase(),
-          message: formData.message.trim()
-        }
-      ])
-      .select();
+    // Insert vendor data into Supabase using form_submissions helper
+    const result = await submitFormEntry({
+      clientName: 'Sweet Salvage',
+      categoryName: 'vendor_requests',
+      email: formData.email,
+      data: {
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        business_name: formData.businessName.trim(),
+        message: formData.message.trim()
+      }
+    });
 
-    if (supabaseError) {
-      console.error('Error inserting vendor data:', supabaseError);
+    if (!result.success) {
+      console.error('Error inserting vendor data:', result.error);
       return NextResponse.json(
         {
           error: 'Failed to save vendor request',
-          message: supabaseError.message
+          message: result.error
         },
         { status: 500 }
       );
     }
 
-    console.log('Vendor data saved to database:', vendorData);
+    console.log('Vendor data saved to database:', result.data);
 
     // Build email content
     const subject = `Vendor Request from ${formData.businessName}`;
@@ -84,7 +79,7 @@ export async function POST(request) {
       success: true,
       message: 'Vendor request submitted successfully',
       id: emailData.id,
-      vendorId: vendorData[0].id
+      vendorId: result.data.id
     });
 
   } catch (error) {
