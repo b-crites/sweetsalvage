@@ -16,16 +16,16 @@ async function fetchEvents() {
   try {
     // Updated to use relative URL for API route
     const response = await fetch("/api/events", { cache: "no-store" });
-    
+
     // Log the response status
     console.log("Response status:", response.status);
-    
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error("API error response:", errorText);
       throw new Error(`API returned ${response.status}`);
     }
-    
+
     const data = await response.json();
     console.log("Received data:", data);
 
@@ -35,13 +35,19 @@ async function fetchEvents() {
       return [];
     }
 
-    // Transform and sort events by start date
-    const formattedEvents = data.events.map((event) => ({ 
-      start: new Date(event.start),
-      title: event.summary,
-      description: event.description,
-      location: event.location,
-    }));
+    // Get current date at start of day for comparison
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    // Transform and filter events to only include upcoming events
+    const formattedEvents = data.events
+      .map((event) => ({
+        start: new Date(event.start),
+        title: event.summary,
+        description: event.description,
+        location: event.location,
+      }))
+      .filter((event) => event.start >= now); // Only upcoming events
 
     // Sort events by start date and keep only the three nearest events
     return formattedEvents.sort((a, b) => a.start - b.start).slice(0, 3);
@@ -103,7 +109,7 @@ export default function Home() {
 
   return (
     <>
-    <ChristmasFairModal />
+    
     <div className="bgBeige">
       <div className="">
         {/* LANDING IMG */}

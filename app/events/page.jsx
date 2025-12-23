@@ -39,28 +39,34 @@ const Events = () => {
     async function fetchEvents() {
       try {
         setLoading(true);
-  
-        
+
         const response = await fetch("/api/events");
-  
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-  
+
         const data = await response.json();
         console.log("Fetched data:", data);
-  
+
+        // Get current date at start of day for comparison
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+
         // clearly use data.events instead of just data
-        const formattedEvents = data.events.map((event) => ({
-          start: new Date(event.start),
-          end: new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1)),
-          title: event.summary,
-          description: event.description || "No Description",
-          location: event.location || "",
-        }));
-  
+        const formattedEvents = data.events
+          .map((event) => ({
+            start: new Date(event.start),
+            end: new Date(new Date(event.start).setHours(new Date(event.start).getHours() + 1)),
+            title: event.summary,
+            description: event.description || "No Description",
+            location: event.location || "",
+          }))
+          .filter((event) => event.start >= now) // Only upcoming events
+          .sort((a, b) => a.start - b.start); // Sort by start date
+
         console.log("Formatted events:", formattedEvents);
-  
+
         setEvents(formattedEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -68,7 +74,7 @@ const Events = () => {
         setLoading(false);
       }
     }
-  
+
     fetchEvents();
   }, []);
   
