@@ -10,7 +10,7 @@ import BeforeAfterSlider from './components/SlideShow';
 const greatFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 import { Great_Vibes } from 'next/font/google';
 import AnniversaryModal from './components/Anniversary';
-import ChristmasFairModal from './components/ChristmasFairModal';
+import SpringMarketModal from './components/SpringMarketModal';
 
 async function fetchEvents() {
   try {
@@ -109,6 +109,8 @@ export default function Home() {
 
   return (
     <>
+    <AnniversaryModal />
+    <SpringMarketModal />
     
     <div className="bgBeige">
       <div className="">
