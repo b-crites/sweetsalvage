@@ -110,7 +110,7 @@ export default function Home() {
 
   return (
     <>
-    <AnniversaryModal />
+    
     <SpringMarketModal />
     
     <div className="bgBeige">

@@ -5,6 +5,13 @@
       "Bash(npm install:*)",
       "Bash(git restore:*)",
       "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(git rm:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)",
+      "Bash(where gh:*)"
       "Bash(cd \"/home/brandon/Desktop/Visionary Advance/GitHub/sweetsalvage\" && npx next build 2>&1 | tail -30)"
     ],
     "deny": [],
