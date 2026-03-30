@@ -4,7 +4,14 @@
       "Bash(node refresh-token.js)",
       "Bash(npm install:*)",
       "Bash(git restore:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(git rm:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)",
+      "Bash(where gh:*)"
     ],
     "deny": [],
     "ask": []
