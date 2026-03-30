@@ -11,6 +11,7 @@ const greatFont = Great_Vibes({ subsets: ['latin'], weight: ['400'] });
 import { Great_Vibes } from 'next/font/google';
 import AnniversaryModal from './components/Anniversary';
 import SpringMarketModal from './components/SpringMarketModal';
+import StepInside from './components/StepInside';
 
 async function fetchEvents() {
   try {
@@ -202,6 +203,10 @@ export default function Home() {
   ))}
   </div>
   </motion.div>
+
+        {/* ==================================================================================================== */}
+        {/* Step Inside Section */}
+        <StepInside />
 
         {/* ==================================================================================================== */}
         {/* Start Food Section */}
