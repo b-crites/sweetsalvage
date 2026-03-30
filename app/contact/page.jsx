@@ -1,6 +1,13 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import Form from "../components/Form";
 
-export default function Contact() {
+function ContactContent() {
+  const searchParams = useSearchParams();
+  const initialForm = searchParams.get("form") || "";
+
   return (
     <>
       <div className="">
@@ -13,17 +20,17 @@ export default function Contact() {
             <div className="col-span-2 pb-5">
                 <p className="font-bold text-2xl ">Sweet Market & Pavillion:</p>
             <ul className=" me-auto  ">
-              <li>Sunday: 10 AM–6 PM</li>
+              <li>Sunday: 10 AM–6 PM</li>
               <li>Monday: Closed</li>
-              <li>Tuesday: 11 AM–8 PM</li>
-              <li>Wednesday: 11 AM–8 PM</li>
-              <li>Thursday: 11 AM–9 PM</li>
-              <li>Friday: 11 AM–9 PM</li>
-              <li>Saturday: 11 AM–9 PM</li>
-            
+              <li>Tuesday: 11 AM–8 PM</li>
+              <li>Wednesday: 11 AM–8 PM</li>
+              <li>Thursday: 11 AM–9 PM</li>
+              <li>Friday: 11 AM–9 PM</li>
+              <li>Saturday: 11 AM–9 PM</li>
+
             </ul>
             </div>
-            
+
             <div className="col-span-2">
                 <p className="font-bold text-2xl">Location:</p>
             {/* LOCATION */}
@@ -31,9 +38,9 @@ export default function Contact() {
           </div>
           </div>
           </div>
-    
+
           <div className="col-span-1 mt-5">
-            <Form />
+            <Form initialForm={initialForm} />
           </div>
         </div>
         <div className="mt-10">        <iframe
@@ -48,5 +55,13 @@ export default function Contact() {
 
       </div>
     </>
+  );
+}
+
+export default function Contact() {
+  return (
+    <Suspense>
+      <ContactContent />
+    </Suspense>
   );
 }

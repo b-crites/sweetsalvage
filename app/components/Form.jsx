@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-export default function Form() {
-  const [selectedValue, setSelectedValue] = useState("");
+export default function Form({ initialForm = "" }) {
+  const [selectedValue, setSelectedValue] = useState(initialForm);
   const [selectedMembers, setSelectedMembers] = useState("");
   const [setLength, setSetLength] = useState("");
   const [power, setPower] = useState("");
@@ -13,6 +13,8 @@ export default function Form() {
   const [stagename, setStageName] = useState("");
   const [eventType, setEventType] = useState("");
   const [drinks, setDrinks] = useState("");
+  const [partySize, setPartySize] = useState("");
+  const [reservationTime, setReservationTime] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -81,6 +83,10 @@ export default function Form() {
     formData.eventType = eventType;
     formData.drinks = drinks;
     formData.weddingDate = selectedDate;
+  } else if (selectedValue === "reservation") {
+    formData.partySize = partySize;
+    formData.reservationTime = reservationTime;
+    formData.reservationDate = selectedDate;
   }
   
   //Log the form data with active fields
@@ -198,6 +204,7 @@ export default function Form() {
           </option>
           <option value="band">Band Form</option>
           <option value="wedding">Wedding Form</option>
+          <option value="reservation">Reservation Form</option>
           <option value="contact">Contact Form</option>
         </select>
         <div className="pt-4">
@@ -467,6 +474,82 @@ export default function Form() {
           </div>
           
         )}
+{/* RESERVATION INFO******************************************************************************************************************************************************* */}
+        {selectedValue === "reservation" && (
+          <div className="mt-4">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              <p>Reservation Details: <span className="text-red-600"> *</span></p>
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* PARTY SIZE */}
+              <select
+                id="partySize"
+                value={partySize}
+                onChange={(e) => setPartySize(e.target.value)}
+                className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+                required
+              >
+                <option value="" disabled>
+                  Party Size?
+                </option>
+                <option value="1-2">1-2 people ($XX)</option>
+                <option value="3-4">3-4 people ($XX)</option>
+                <option value="5-6">5-6 people ($XX)</option>
+                <option value="7-10">7-10 people ($XX)</option>
+                <option value="10+">10+ people ($XX)</option>
+              </select>
+              {/* TIME SLOT */}
+              <select
+                id="reservationTime"
+                value={reservationTime}
+                onChange={(e) => setReservationTime(e.target.value)}
+                className="block w-full p-2 border text-gray-700 border-gray-300 rounded-md"
+                required
+              >
+                <option value="" disabled>
+                  Reservation Time?
+                </option>
+                <option value="11:00 AM">11 AM</option>
+                <option value="12:00 PM">12 PM</option>
+                <option value="1:00 PM">1 PM</option>
+                <option value="2:00 PM">2 PM</option>
+                <option value="3:00 PM">3 PM</option>
+                <option value="4:00 PM">4 PM</option>
+                <option value="5:00 PM">5 PM</option>
+                <option value="6:00 PM">6 PM</option>
+                <option value="7:00 PM">7 PM</option>
+                <option value="8:00 PM">8 PM</option>
+              </select>
+              {/* DATE PICKER */}
+              <div className="block col-span-2 w-full">
+                <label htmlFor="reservationDate" className="block mb-2 text-sm font-medium text-gray-700">
+                  <p>Select a Reservation Date: <span className="text-red-600"> *</span></p>
+                </label>
+                <input
+                  type="date"
+                  id="reservationDate"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  className="block w-full p-2 border border-gray-300 rounded-md"
+                  min={today}
+                  required
+                />
+              </div>
+            </div>
+            <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">Anything else we should know? (Optional)</label>
+            <textarea
+              id="message"
+              className="block w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            ></textarea>
+            <div className="mt-2 grid justify-items-end">
+              <button className="active:scale-95 duration-75 rounded-md bg-red-400 text-white px-4 py-2">Submit</button>
+            </div>
+          </div>
+        )}
+{/* END OF RESERVATION INFO******************************************************************************************************************************************** */}
         {selectedValue === "contact" && (
           <div className="mt-4">
            <label className="block my-2 text-sm font-medium text-gray-700" htmlFor="message">What's your reason for contacting?</label>
