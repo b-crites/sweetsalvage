@@ -10,8 +10,10 @@ export async function POST(request) {
     // Build email content based on form type
     let emailContent = '';
     let subject = '';
+    let fromName = '';
 
     if (formData.selectedValue === 'band') {
+      fromName = 'New Band Submission';
       subject = `Band Inquiry from ${formData.firstName} ${formData.lastName}`;
       emailContent = `
         <h2>New Band Inquiry</h2>
@@ -30,6 +32,7 @@ export async function POST(request) {
         ${formData.message ? `<p><strong>Additional Notes:</strong> ${formData.message}</p>` : ''}
       `;
     } else if (formData.selectedValue === 'wedding') {
+      fromName = 'New Wedding Submission';
       subject = `Wedding Inquiry from ${formData.firstName} ${formData.lastName}`;
       emailContent = `
         <h2>New Wedding Inquiry</h2>
@@ -43,7 +46,23 @@ export async function POST(request) {
         <p><strong>Wedding Date:</strong> ${formData.selectedDate}</p>
         ${formData.message ? `<p><strong>Additional Notes:</strong> ${formData.message}</p>` : ''}
       `;
+    } else if (formData.selectedValue === 'reservation') {
+      fromName = 'New Reservation Submission';
+      subject = `Reservation Request from ${formData.firstName} ${formData.lastName}`;
+      emailContent = `
+        <h2>New Reservation Request</h2>
+        <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>Phone:</strong> ${formData.phoneNumber}</p>
+        <hr />
+        <h3>Reservation Details</h3>
+        <p><strong>Party Size:</strong> ${formData.partySize}</p>
+        <p><strong>Reservation Date:</strong> ${formData.reservationDate}</p>
+        <p><strong>Reservation Time:</strong> ${formData.reservationTime}</p>
+        ${formData.message ? `<p><strong>Additional Notes:</strong> ${formData.message}</p>` : ''}
+      `;
     } else if (formData.selectedValue === 'contact') {
+      fromName = 'New Contact Submission';
       subject = `Contact Form from ${formData.firstName} ${formData.lastName}`;
       emailContent = `
         <h2>New Contact Form Submission</h2>
@@ -58,7 +77,8 @@ export async function POST(request) {
 
     // Send email using Resend
     const data = await resend.emails.send({
-      from: 'no-reply@mail.visionaryadvance.com',
+      from: `${fromName} <no-reply@mail.visionaryadvance.com>`,
+      reply_to: formData.email,
       to: ['sweetsalvagejt@gmail.com'],
       subject: subject,
       html: emailContent,

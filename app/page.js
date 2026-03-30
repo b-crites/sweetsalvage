@@ -270,6 +270,23 @@ export default function Home() {
 
       </motion.div>
       {/* ======================================================================================================================= */}
+      {/* Reservations Section */}
+      <motion.div initial={{ opacity: 0, x: "-20px" }}
+        whileInView={{ opacity: 1, x: "0px" }} transition={{ duration: 1 }} viewport={{ once: true }}
+        className="mt-20 text-center">
+        <div className="w-11/12 lg:w-8/12 mx-auto py-16">
+          <h3 className="font-bold text-5xl font-serif mb-4">Reserve Your Spot</h3>
+          <p className="lg:mx-10 mx-6 text-lg mb-8">
+            Planning a get-together, celebration, or just a fun night out? Reserve a spot at Sweet Salvage and enjoy great food, live music, and good vibes. Whether it's a small group or a bigger party, we've got you covered.
+          </p>
+          <Link href="/contact?form=reservation">
+            <button className="active:scale-95 duration-75 rounded-lg bg-red-400 text-white px-6 py-3 text-lg font-semibold">
+              Make a Reservation
+            </button>
+          </Link>
+        </div>
+      </motion.div>
+      {/* ======================================================================================================================= */}
       {/* IG POSTS */}
       <div className="font-bold text-3xl font-serif text-center mt-20">
   <h3 className="flex justify-center items-center gap-2">
